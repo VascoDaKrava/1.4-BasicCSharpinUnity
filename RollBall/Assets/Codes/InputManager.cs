@@ -6,6 +6,10 @@ namespace Kravchuk
     {
         private Vector3 _direction;
 
+        public bool IsStop { 
+            get { return Input.GetButton("Stop"); } 
+        }
+
         /// <summary>
         /// Return normalized Vector3 of direction if pressed move-keys
         /// </summary>
@@ -18,5 +22,6 @@ namespace Kravchuk
                         
             return _direction.normalized;
         }
+
     }
 }

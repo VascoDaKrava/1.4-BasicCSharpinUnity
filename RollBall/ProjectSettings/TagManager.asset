@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pickup
-  - SpeedChange
-  - HealthChange
+  - PickupHealthTag
+  - PickupSpeedTag
+  - PickupWinTag
   layers:
   - Default
   - TransparentFX
