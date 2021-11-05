@@ -1,3 +1,4 @@
+using static UnityEngine.Debug;
 using UnityEngine;
 
 namespace Kravchuk
@@ -23,7 +24,7 @@ namespace Kravchuk
             set
             {
                 _winPoints += value;
-                Debug.Log("WP = " + _winPoints);
+                Log("WP = " + _winPoints);
             }
         }
 
@@ -35,6 +36,7 @@ namespace Kravchuk
             {
                 // Change player health by value. Die if it less 0
                 _health += value;
+                Log("Health = " + _health);
 
                 if (_health > _maxHealth)
                     _health = _maxHealth;
@@ -48,7 +50,11 @@ namespace Kravchuk
         {
             get => _currentSpeed;
 
-            set { _currentSpeed = value; }
+            set
+            {
+                _currentSpeed = value;
+                Log("Speed = " + _currentSpeed);
+            }
         }
 
         #endregion
@@ -77,7 +83,7 @@ namespace Kravchuk
 
         private void Die()
         {
-
+            Log("Now DIE !");
         }
     }
 }
