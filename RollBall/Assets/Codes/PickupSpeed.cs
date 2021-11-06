@@ -14,17 +14,14 @@ namespace Kravchuk
             PlayerContr.ChangeSpeedTemporary(Random.Range(-_deltaSpeed, _deltaSpeed), Random.Range(_minDuration, _maxDuration));
         }
 
-        /// <summary>
-        /// Rotate pickup around themself through Y-axis with _speedRotation
-        /// </summary>
-        public void Rotate()
+        public void Rotate(Transform transform, float speed)
         {
-            PickupTransform.RotateAround(PickupTransform.position, Vector3.up, Time.deltaTime * _rotationSpeed);
+            transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
         protected internal override void DoItInUpdate()
         {
-            Rotate();
+            Rotate(PickupTransform, _rotationSpeed);
         }
     }
 }

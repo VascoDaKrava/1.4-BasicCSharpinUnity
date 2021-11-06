@@ -5,7 +5,7 @@ namespace Kravchuk
     public sealed class PickupHealth : Pickup, IFly, IResize, IRotate
     {
         private int _deltaPower = 99;
-        
+
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
 
@@ -15,50 +15,43 @@ namespace Kravchuk
         private float _maxScale = 1.5f;
         private float _scaleSpeed = 2f;
 
-        private Vector3 _newPosition;
-        private Vector3 _newScale;
-
         protected override void Interaction()
         {
             PlayerContr.Health = Random.Range(-_deltaPower, _deltaPower + 1);
         }
 
-        /// <summary>
-        /// Move pickup from 0 to _maxHeightFly through Y-axis with _speedFly
-        /// </summary>
-        public void Fly()
+        public void Fly(Transform transform, float maxHeight, float speed)
         {
-            _newPosition.x = PickupTransform.localPosition.x;
-            _newPosition.y = Mathf.PingPong(Time.time * _flySpeed, _maxFlyHeight);
-            _newPosition.z = PickupTransform.localPosition.z;
+            Vector3 newPosition;
 
-            PickupTransform.localPosition = _newPosition;
+            newPosition.x = transform.localPosition.x;
+            newPosition.y = Mathf.PingPong(Time.time * speed, maxHeight);
+            newPosition.z = transform.localPosition.z;
+
+            transform.localPosition = newPosition;
         }
 
-        /// <summary>
-        /// Rotate pickup around themself through Y-axis with _speedRotation
-        /// </summary>
-        public void Rotate()
+        public void Rotate(Transform transform, float speed)
         {
-            PickupTransform.RotateAround(PickupTransform.position, Vector3.up, Time.deltaTime * _rotationSpeed);
+            transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        /// <summary>
-        /// Change pickup scale from _minScale to _maxScale with _scaleSpeed
-        /// </summary>
-        public void Resize()
+        public void Resize(Transform transform, float minScale, float maxScale, float speed)
         {
-            _newScale.x = 
-            _newScale.y = 
-            _newScale.z = Mathf.PingPong(Time.time * _scaleSpeed, _maxScale - _minScale) + _minScale;
-            PickupTransform.localScale = _newScale;
+            Vector3 newScale;
+
+            newScale.x =
+            newScale.y =
+            newScale.z = Mathf.PingPong(Time.time * speed, maxScale - minScale) + minScale;
+
+            transform.localScale = newScale;
         }
 
         protected internal override void DoItInUpdate()
         {
-            Fly();
-            Rotate();
-            Resize();
+            Fly(PickupTransform, _maxFlyHeight, _flySpeed);
+            Rotate(PickupTransform, _rotationSpeed);
+            Resize(PickupTransform, _minScale, _maxScale, _scaleSpeed);
         }
     }
 }
