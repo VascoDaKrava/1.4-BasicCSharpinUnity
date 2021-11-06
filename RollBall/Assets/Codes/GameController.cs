@@ -6,6 +6,8 @@ namespace Kravchuk
 {
     public sealed class GameController : MonoBehaviour
     {
+        private bool _needRemovePickup = false;
+
         private Rigidbody _playerRigidbody;
         private Camera _camera;
 
@@ -53,14 +55,22 @@ namespace Kravchuk
 
             foreach (Pickup item in _pickupsList)
             {
-                item.DoItInUpdate();
+                if (item == null)
+                    _needRemovePickup = true;
+                else
+                    item.DoItInUpdate();
             }
         }
 
         private void LateUpdate()
         {
+            if (_needRemovePickup)
+            {
+                _pickupsList.Remove(null);
+                _needRemovePickup = false;
+            }
+
             _cameraController.LetMove(_playerRigidbody.position);
         }
     }
-
 }

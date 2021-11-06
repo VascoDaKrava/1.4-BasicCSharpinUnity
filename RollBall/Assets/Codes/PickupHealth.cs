@@ -4,7 +4,7 @@ namespace Kravchuk
 {
     public sealed class PickupHealth : Pickup, IFly, IResize, IRotate
     {
-        private int _maxPower = 99;
+        private int _deltaPower = 99;
         
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
@@ -20,7 +20,7 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            PlayerContr.Health = Random.Range(-_maxPower, _maxPower + 1);
+            PlayerContr.Health = Random.Range(-_deltaPower, _deltaPower + 1);
         }
 
         /// <summary>
