@@ -22,7 +22,7 @@ namespace Kravchuk
             _playerRigidbody = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Rigidbody>();
 
             if (_playerRigidbody == null)
-                throw new Exception("Need object with tag \"Player\" and component Rigidbody");
+                throw new RollballException("Need object with tag \"Player\" and component Rigidbody");
             
             _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
