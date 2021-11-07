@@ -1,4 +1,4 @@
-//using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +18,12 @@ namespace Kravchuk
 
         private void Awake()
         {
-            _playerRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+            
+            _playerRigidbody = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Rigidbody>();
+
+            if (_playerRigidbody == null)
+                throw new Exception("Need object with tag \"Player\" and component Rigidbody");
+            
             _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
             foreach (GameObject item in GameObject.FindGameObjectsWithTag("PickupWinTag"))
