@@ -15,9 +15,13 @@ namespace Kravchuk
         private float _maxScale = 1.5f;
         private float _scaleSpeed = 2f;
 
+        //public PickupHealth(PlayerController playerController, Transform transform)
+        //    : base(playerController, transform)
+        //{ }
+
         protected override void Interaction()
         {
-            PlayerContr.Health = Random.Range(-_deltaPower, _deltaPower + 1);
+            EventStorageLink.InvokePickupEvent(PickupTag, Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
         public void Fly(Transform transform, float maxHeight, float speed)
@@ -49,9 +53,9 @@ namespace Kravchuk
 
         protected internal override void DoItInUpdate()
         {
-            Fly(PickupTransform, _maxFlyHeight, _flySpeed);
-            Rotate(PickupTransform, _rotationSpeed);
-            Resize(PickupTransform, _minScale, _maxScale, _scaleSpeed);
+            Fly(TransformLink, _maxFlyHeight, _flySpeed);
+            Rotate(TransformLink, _rotationSpeed);
+            Resize(TransformLink, _minScale, _maxScale, _scaleSpeed);
         }
     }
 }

@@ -6,10 +6,11 @@ namespace Kravchuk
     {
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
+        private int _pickupPower = 1;
 
         protected override void Interaction()
         {
-            PlayerContr.WinPoints = 1;
+            EventStorageLink.InvokePickupEvent(PickupTag, _pickupPower);
         }
 
         public void Fly(Transform transform, float maxHeightFly, float speedFly)
@@ -25,7 +26,7 @@ namespace Kravchuk
 
         protected internal override void DoItInUpdate()
         {
-            Fly(PickupTransform, _maxFlyHeight, _flySpeed);
+            Fly(TransformLink, _maxFlyHeight, _flySpeed);
         }
     }
 }

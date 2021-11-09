@@ -1,21 +1,21 @@
-using static UnityEngine.Debug;
+using System;
 using UnityEngine;
-using System.Collections;
+using static UnityEngine.Debug;
 
 namespace Kravchuk
 {
-    public sealed class PlayerController
+    public sealed class PlayerController: IDisposable
     {
         private bool _needChangeSpeed = false;
         private int _health = 100;
         private int _maxHealth = 100;
-        private int _winPoints = 0;
         private float _originSpeed = 5f;
         private float _changedSpeed = 0f;
         private float _durationSpeedChange = 0f;
         private float _durationSpeedChangeCurrent = 0f;
         private Vector3 _moveDirection;
         private InputManager _inputManager = new InputManager();
+        private EventStorage _eventStorage;
 
         #region Properties
 
@@ -23,20 +23,6 @@ namespace Kravchuk
         /// Link to rigidbody
         /// </summary>
         public Rigidbody PlayerRigidbody { get; set; }
-
-        /// <summary>
-        /// Change quantity of points by value to win
-        /// </summary>
-        public int WinPoints
-        {
-            //get => _winPoints;
-
-            set
-            {
-                _winPoints += value;
-                Log("Current win-points : " + _winPoints);
-            }
-        }
 
         /// <summary>
         /// Change player health by value. Die if it less 0
@@ -67,9 +53,44 @@ namespace Kravchuk
 
         #endregion
 
-        public PlayerController()
+        /// <summary>
+        /// Create PlayerController
+        /// </summary>
+        /// <param name="eventStorage">Link to EventStorage</param>
+        public PlayerController(EventStorage eventStorage)
         {
             Speed = _originSpeed;
+            _eventStorage = eventStorage;
+            _eventStorage.PickupEvent += PickupCollected;
+        }
+
+        /// <summary>
+        /// Event hendler
+        /// </summary>
+        /// <param name="eventData"></param>
+        private void PickupCollected(EventArguments eventData)
+        {
+            switch (eventData.TagE)
+            {
+                case GameController.PickupTags.PickupHealthTag:
+                    Health = eventData.PowerInt;
+                    break;
+
+                case GameController.PickupTags.PickupSpeedTag:
+                    ChangeSpeedTemporary(eventData.PowerFloat, eventData.Duration);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Execute when die
+        /// </summary>
+        private void Die()
+        {
+            Log("Now DIE !");
         }
 
         /// <summary>
@@ -120,9 +141,9 @@ namespace Kravchuk
             }
         }
 
-        private void Die()
+        public void Dispose()
         {
-            Log("Now DIE !");
+            _eventStorage.PickupEvent -= PickupCollected;
         }
     }
 }
