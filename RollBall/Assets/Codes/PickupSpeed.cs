@@ -11,7 +11,11 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            PlayerContr.ChangeSpeedTemporary(Random.Range(-_deltaSpeed, _deltaSpeed), Random.Range(_minDuration, _maxDuration));
+            EventStorageLink.InvokePickupEvent(
+                PickupTag,
+                Random.Range(-_deltaSpeed, _deltaSpeed),
+                Random.Range(_minDuration, _maxDuration)
+                );
         }
 
         public void Rotate(Transform transform, float speed)
@@ -21,7 +25,7 @@ namespace Kravchuk
 
         protected internal override void DoItInUpdate()
         {
-            Rotate(PickupTransform, _rotationSpeed);
+            Rotate(TransformLink, _rotationSpeed);
         }
     }
 }
