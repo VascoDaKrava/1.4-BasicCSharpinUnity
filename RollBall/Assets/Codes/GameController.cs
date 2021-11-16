@@ -6,12 +6,12 @@ namespace Kravchuk
 {
     public sealed class GameController : MonoBehaviour, IDisposable
     {
-        public enum PickupTags
-        {
-            PickupWinTag,
-            PickupSpeedTag,
-            PickupHealthTag
-        }
+        //public enum PickupTags
+        //{
+        //    PickupWinTag,
+        //    PickupSpeedTag,
+        //    PickupHealthTag
+        //}
 
         private bool _needRemovePickup = false;
 
@@ -49,28 +49,10 @@ namespace Kravchuk
 
             #region Searching and configuring objects with pickups tags
 
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(PickupTags.PickupWinTag.ToString()))
+            foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
-                //item.AddComponent<PickupWin>();
-                //_pickupsList.Add(item.AddComponent<PickupWin>(_playerController, transform));
-                _pickupsList.Add(item.AddComponent<PickupWin>());
-                SetPickupParameters(_pickupsList[_pickupsList.Count - 1], _playerController, item.transform, _eventStorage, PickupTags.PickupWinTag);
-            }
-
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(PickupTags.PickupSpeedTag.ToString()))
-            {
-                _pickupsList.Add(item.AddComponent<PickupSpeed>());
-                SetPickupParameters(_pickupsList[_pickupsList.Count - 1], _playerController, item.transform, _eventStorage, PickupTags.PickupSpeedTag);
-            }
-
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag(PickupTags.PickupHealthTag.ToString()))
-            {
-                //PickupHealth asd = new PickupHealth(_playerController, transform);
-                //item.AddComponent<PickupHealth>();
-                //_pickupsList.Add(asd);
-
-                _pickupsList.Add(item.AddComponent<PickupHealth>());
-                SetPickupParameters(_pickupsList[_pickupsList.Count - 1], _playerController, item.transform, _eventStorage, PickupTags.PickupHealthTag);
+                SetPickupParameters(item, _playerController, _eventStorage);
+                _pickupsList.Add(item);
             }
 
             #endregion
@@ -112,20 +94,15 @@ namespace Kravchuk
         /// </summary>
         /// <param name="pickup">Link to pickup</param>
         /// <param name="playerController">Link to PlayerController for use in Pickup</param>
-        /// <param name="transform">Link to Transform of this Pickup</param>
         /// <param name="eventStorage">Link to EventStorage for use in Pickup</param>
-        /// <param name="pickupTag">Tag of this Pickup</param>
         private void SetPickupParameters(
             Pickup pickup,
             PlayerController playerController,
-            Transform transform,
-            EventStorage eventStorage,
-            PickupTags pickupTag)
+            EventStorage eventStorage
+            )
         {
             pickup.PlayerControllerLink = playerController;
-            pickup.TransformLink = transform;
             pickup.EventStorageLink = eventStorage;
-            pickup.PickupTag = pickupTag;
         }
 
         /// <summary>
@@ -134,13 +111,14 @@ namespace Kravchuk
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TagE == PickupTags.PickupWinTag)
+            if (eventData.TypeE == typeof(PickupWin))
+            {
                 _winPoints -= eventData.PowerInt;
-
-            if (_winPoints > 0)
-                Debug.Log($"Collected win-point! {_winPoints} left to win");
-            else
-                Win();
+                if (_winPoints > 0)
+                    Debug.Log($"Collected win-point! {_winPoints} left to win");
+                else
+                    Win();
+            }
         }
 
         /// <summary>

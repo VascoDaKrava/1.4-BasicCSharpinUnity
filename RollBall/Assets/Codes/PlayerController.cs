@@ -4,7 +4,7 @@ using static UnityEngine.Debug;
 
 namespace Kravchuk
 {
-    public sealed class PlayerController: IDisposable
+    public sealed class PlayerController : IDisposable
     {
         private bool _needChangeSpeed = false;
         private int _health = 100;
@@ -70,19 +70,11 @@ namespace Kravchuk
         /// <param name="eventData"></param>
         private void PickupCollected(EventArguments eventData)
         {
-            switch (eventData.TagE)
-            {
-                case GameController.PickupTags.PickupHealthTag:
-                    Health = eventData.PowerInt;
-                    break;
-
-                case GameController.PickupTags.PickupSpeedTag:
-                    ChangeSpeedTemporary(eventData.PowerFloat, eventData.Duration);
-                    break;
-
-                default:
-                    break;
-            }
+            if (eventData.TypeE == typeof(PickupHealth))
+                Health = eventData.PowerInt;
+            else
+                if (eventData.TypeE == typeof(PickupSpeed))
+                ChangeSpeedTemporary(eventData.PowerFloat, eventData.Duration);
         }
 
         /// <summary>
@@ -136,7 +128,6 @@ namespace Kravchuk
                 {
                     Speed = Mathf.Lerp(_changedSpeed, _originSpeed, _durationSpeedChangeCurrent / _durationSpeedChange);
                     _durationSpeedChangeCurrent += Time.deltaTime;
-                    //Log($"New speed = {Speed:F2}");
                 }
             }
         }

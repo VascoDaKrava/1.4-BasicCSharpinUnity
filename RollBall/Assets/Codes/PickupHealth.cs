@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public sealed class PickupHealth : Pickup, IFly, IResize, IRotate
+    public sealed class PickupHealth : Pickup, IFlyable, IResizable, IRotatable
     {
         private int _deltaPower = 99;
 
@@ -15,13 +15,9 @@ namespace Kravchuk
         private float _maxScale = 1.5f;
         private float _scaleSpeed = 2f;
 
-        //public PickupHealth(PlayerController playerController, Transform transform)
-        //    : base(playerController, transform)
-        //{ }
-
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(PickupTag, Random.Range(-_deltaPower, _deltaPower + 1));
+            EventStorageLink.InvokePickupEvent(GetType(), Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
         public void Fly(Transform transform, float maxHeight, float speed)
@@ -53,9 +49,9 @@ namespace Kravchuk
 
         protected internal override void DoItInUpdate()
         {
-            Fly(TransformLink, _maxFlyHeight, _flySpeed);
-            Rotate(TransformLink, _rotationSpeed);
-            Resize(TransformLink, _minScale, _maxScale, _scaleSpeed);
+            Fly(transform, _maxFlyHeight, _flySpeed);
+            Rotate(transform, _rotationSpeed);
+            Resize(transform, _minScale, _maxScale, _scaleSpeed);
         }
     }
 }

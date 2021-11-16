@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public interface IResize
+    public interface IResizable
     {
         /// <summary>
         /// Change transform scale from minScale to maxScale with speed

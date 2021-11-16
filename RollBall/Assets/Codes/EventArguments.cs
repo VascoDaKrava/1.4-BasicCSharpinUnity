@@ -5,9 +5,9 @@ namespace Kravchuk
     public sealed class EventArguments : EventArgs
     {
         /// <summary>
-        /// Tag
+        /// Type
         /// </summary>
-        public GameController.PickupTags TagE { get; }
+        public Type TypeE { get; }
 
         /// <summary>
         /// Power integer
@@ -27,23 +27,23 @@ namespace Kravchuk
         /// <summary>
         /// Two EventArgs
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="type"></param>
         /// <param name="power"></param>
-        public EventArguments(GameController.PickupTags tag, int power)
+        public EventArguments(Type type, int power)
         {
-            TagE = tag;
+            TypeE = type;
             PowerInt = power;
         }
 
         /// <summary>
         /// Three EventArgs
         /// </summary>
-        /// <param name="tag"></param>
+        /// <param name="type"></param>
         /// <param name="power"></param>
         /// <param name="duration"></param>
-        public EventArguments(GameController.PickupTags tag, float power, float duration)
+        public EventArguments(Type type, float power, float duration)
         {
-            TagE = tag;
+            TypeE = type;
             PowerFloat = power;
             Duration = duration;
         }

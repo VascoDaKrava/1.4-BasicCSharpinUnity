@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 371842561183638410}
   - component: {fileID: 7970764774697891560}
+  - component: {fileID: 5046019592829604541}
   m_Layer: 0
   m_Name: PickupWin
-  m_TagString: PickupWinTag
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +46,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &5046019592829604541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289917758849577403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b463b08263df343a22364f51449ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6864840420494904388
 GameObject:
   m_ObjectHideFlags: 0
