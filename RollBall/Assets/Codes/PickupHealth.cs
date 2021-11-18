@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public sealed class PickupHealth : Pickup, IFlyable, IResizable, IRotatable
+    public sealed class PickupHealth : Pickup, IFlyable, IResizable, IRotatable, IUpdatable
     {
         private int _deltaPower = 99;
 
@@ -20,7 +20,7 @@ namespace Kravchuk
             EventStorageLink.InvokePickupEvent(GetType(), Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
-        public void Fly(Transform transform, float maxHeight, float speed)
+        void IFlyable.Fly(Transform transform, float maxHeight, float speed)
         {
             Vector3 newPosition;
 
@@ -31,12 +31,12 @@ namespace Kravchuk
             transform.localPosition = newPosition;
         }
 
-        public void Rotate(Transform transform, float speed)
+        void IRotatable.Rotate(Transform transform, float speed)
         {
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        public void Resize(Transform transform, float minScale, float maxScale, float speed)
+        void IResizable.Resize(Transform transform, float minScale, float maxScale, float speed)
         {
             Vector3 newScale;
 
@@ -47,11 +47,11 @@ namespace Kravchuk
             transform.localScale = newScale;
         }
 
-        protected internal override void DoItInUpdate()
+        void IUpdatable.DoItInUpdate()
         {
-            Fly(transform, _maxFlyHeight, _flySpeed);
-            Rotate(transform, _rotationSpeed);
-            Resize(transform, _minScale, _maxScale, _scaleSpeed);
+            ((IFlyable)this).Fly(transform, _maxFlyHeight, _flySpeed);
+            ((IRotatable)this).Rotate(transform, _rotationSpeed);
+            ((IResizable)this).Resize(transform, _minScale, _maxScale, _scaleSpeed);
         }
     }
 }

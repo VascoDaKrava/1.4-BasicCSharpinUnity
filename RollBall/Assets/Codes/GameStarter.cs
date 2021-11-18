@@ -4,16 +4,9 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public sealed class GameController : MonoBehaviour, IDisposable
+    public sealed class GameStarter : MonoBehaviour, IDisposable
     {
-        //public enum PickupTags
-        //{
-        //    PickupWinTag,
-        //    PickupSpeedTag,
-        //    PickupHealthTag
-        //}
-
-        private bool _needRemovePickup = false;
+        private bool _needRemoveFromUpdate = false;
 
         private int _winPoints = 5;
 
@@ -25,17 +18,12 @@ namespace Kravchuk
 
         private List<Pickup> _pickupsList;
 
+        private List<IUpdatable> _updatables;
+
         private EventStorage _eventStorage;
 
         private void Awake()
         {
-            _pickupsList = new List<Pickup>();
-            _cameraController = new CameraController();
-            _eventStorage = new EventStorage();
-            _playerController = new PlayerController(_eventStorage);
-
-            _eventStorage.PickupEvent += PickupCollected;
-
             #region Searching Player and Camera
 
             _playerRigidbody = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Rigidbody>();
@@ -47,12 +35,22 @@ namespace Kravchuk
 
             #endregion
 
-            #region Searching and configuring objects with pickups tags
+            _pickupsList = new List<Pickup>();
+            _updatables = new List<IUpdatable>();
+            _cameraController = new CameraController();
+            _eventStorage = new EventStorage();
+            _playerController = new PlayerController(_eventStorage, _playerRigidbody);
+            _updatables.Add(_playerController);
+
+            _eventStorage.PickupEvent += PickupCollected;
+
+            #region Searching and configuring objects with pickups types
 
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
-                SetPickupParameters(item, _playerController, _eventStorage);
+                item.EventStorageLink = _eventStorage;
                 _pickupsList.Add(item);
+                _updatables.Add((IUpdatable)item);
             }
 
             #endregion
@@ -61,48 +59,29 @@ namespace Kravchuk
 
         private void Start()
         {
-            _playerController.PlayerRigidbody = _playerRigidbody;
             _cameraController.MainCamera = _camera;
         }
 
         private void Update()
         {
-            _playerController.LetMove();
-
-            foreach (Pickup item in _pickupsList)
+            foreach (IUpdatable item in _updatables)
             {
-                if (item == null)
-                    _needRemovePickup = true;
+                if (item.Equals(null))
+                    _needRemoveFromUpdate = true;
                 else
                     item.DoItInUpdate();
+            }
+
+            if (_needRemoveFromUpdate)
+            {
+                _updatables.Remove(null);
+                _needRemoveFromUpdate = false;
             }
         }
 
         private void LateUpdate()
         {
-            if (_needRemovePickup)
-            {
-                _pickupsList.Remove(null);
-                _needRemovePickup = false;
-            }
-
             _cameraController.LetMove(_playerRigidbody.position);
-        }
-
-        /// <summary>
-        /// Set parameters for pickup object
-        /// </summary>
-        /// <param name="pickup">Link to pickup</param>
-        /// <param name="playerController">Link to PlayerController for use in Pickup</param>
-        /// <param name="eventStorage">Link to EventStorage for use in Pickup</param>
-        private void SetPickupParameters(
-            Pickup pickup,
-            PlayerController playerController,
-            EventStorage eventStorage
-            )
-        {
-            pickup.PlayerControllerLink = playerController;
-            pickup.EventStorageLink = eventStorage;
         }
 
         /// <summary>

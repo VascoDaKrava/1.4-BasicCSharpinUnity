@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public sealed class PickupSpeed : Pickup, IRotatable
+    public sealed class PickupSpeed : Pickup, IRotatable, IUpdatable
     {
         private float _rotationSpeed = 30f;
         private float _deltaSpeed = 4f;
@@ -18,14 +18,14 @@ namespace Kravchuk
                 );
         }
 
-        public void Rotate(Transform transform, float speed)
+        void IRotatable.Rotate(Transform transform, float speed)
         {
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        protected internal override void DoItInUpdate()
+        void IUpdatable.DoItInUpdate()
         {
-            Rotate(transform, _rotationSpeed);
+            ((IRotatable)this).Rotate(transform, _rotationSpeed);
         }
     }
 }
