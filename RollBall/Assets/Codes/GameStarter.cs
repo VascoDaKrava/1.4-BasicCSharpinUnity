@@ -10,56 +10,25 @@ namespace Kravchuk
 
         private int _winPoints = 5;
 
-        private Rigidbody _playerRigidbody;
-        private Camera _camera;
-
-        private PlayerController _playerController;
-        private CameraController _cameraController;
-
-        private List<Pickup> _pickupsList;
-
         private List<IUpdatable> _updatables;
+        private List<ILateupdatable> _lateUpdatables;
 
-        private EventStorage _eventStorage;
+        private Links _links;
 
         private void Awake()
         {
-            #region Searching Player and Camera
+            _links = new Links();
 
-            _playerRigidbody = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Rigidbody>();
-
-            if (_playerRigidbody == null)
-                throw new RollballException("Need object with tag \"Player\" and component Rigidbody");
-
-            _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
-            #endregion
-
-            _pickupsList = new List<Pickup>();
             _updatables = new List<IUpdatable>();
-            _cameraController = new CameraController();
-            _eventStorage = new EventStorage();
-            _playerController = new PlayerController(_eventStorage, _playerRigidbody);
-            _updatables.Add(_playerController);
+            _lateUpdatables = new List<ILateupdatable>();
 
-            _eventStorage.PickupEvent += PickupCollected;
+            _lateUpdatables.Add(_links.CameraControllerLink);
 
-            #region Searching and configuring objects with pickups types
+            _updatables.Add(_links.PlayerControllerLink);
+            _updatables.AddRange(_links.Pickups);
 
-            foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
-            {
-                item.EventStorageLink = _eventStorage;
-                _pickupsList.Add(item);
-                _updatables.Add((IUpdatable)item);
-            }
-
-            #endregion
-        }
-
-
-        private void Start()
-        {
-            _cameraController.MainCamera = _camera;
+            // Subscribe event for detect collecting winpoint
+            _links.EventStorageLink.PickupEvent += PickupCollected;
         }
 
         private void Update()
@@ -81,7 +50,10 @@ namespace Kravchuk
 
         private void LateUpdate()
         {
-            _cameraController.LetMove(_playerRigidbody.position);
+            foreach (ILateupdatable item in _lateUpdatables)
+            {
+                item.DoItInLateupdate();
+            }
         }
 
         /// <summary>
@@ -110,7 +82,7 @@ namespace Kravchuk
 
         public void Dispose()
         {
-            _eventStorage.PickupEvent -= PickupCollected;
+            _links.EventStorageLink.PickupEvent -= PickupCollected;
         }
     }
 }
