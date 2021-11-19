@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public interface IRotate
+    public interface IRotatable
     {
         /// <summary>
         /// Rotate transform around themself through Y-axis with speed

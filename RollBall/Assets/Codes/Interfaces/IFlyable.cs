@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public interface IFly
+    public interface IFlyable
     {
         /// <summary>
         /// Move transform from 0 to maxHeight through Y-axis with speed

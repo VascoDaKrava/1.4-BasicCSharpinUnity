@@ -13,24 +13,24 @@ namespace Kravchuk
         }
 
         /// <summary>
-        /// Invoke event for pickup with pickup-tag and power
+        /// Invoke event for pickup with type and power
         /// </summary>
-        /// <param name="tag">Type of collected pickup</param>
+        /// <param name="type">Type of collected pickup</param>
         /// <param name="power">Power of collected pickup</param>
-        public void InvokePickupEvent(GameController.PickupTags tag, int power)
+        public void InvokePickupEvent(Type type, int power)
         {
-            _pickupEvent.Invoke(new EventArguments(tag, power));
+            _pickupEvent.Invoke(new EventArguments(type, power));
         }
 
         /// <summary>
-        /// Invoke event for pickup with pickup-tag, power and duration
+        /// Invoke event for pickup with type, power and duration
         /// </summary>
-        /// <param name="tag">Type of collected pickup</param>
+        /// <param name="type">Type of collected pickup</param>
         /// <param name="power">Power of collected pickup</param>
         /// <param name="duration">Effect duration</param>
-        public void InvokePickupEvent(GameController.PickupTags tag, float power, float duration)
+        public void InvokePickupEvent(Type type, float power, float duration)
         {
-            _pickupEvent.Invoke(new EventArguments(tag, power, duration));
+            _pickupEvent.Invoke(new EventArguments(type, power, duration));
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public sealed class PickupWin : Pickup, IFly
+    public sealed class PickupWin : Pickup, IFlyable, IUpdatable
     {
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
@@ -10,10 +10,10 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(PickupTag, _pickupPower);
+            EventStorageLink.InvokePickupEvent(GetType(), _pickupPower);
         }
 
-        public void Fly(Transform transform, float maxHeightFly, float speedFly)
+        void IFlyable.Fly(Transform transform, float maxHeightFly, float speedFly)
         {
             Vector3 newPosition;
 
@@ -24,9 +24,9 @@ namespace Kravchuk
             transform.localPosition = newPosition;
         }
 
-        protected internal override void DoItInUpdate()
+        void IUpdatable.DoItInUpdate()
         {
-            Fly(TransformLink, _maxFlyHeight, _flySpeed);
+            ((IFlyable)this).Fly(transform, _maxFlyHeight, _flySpeed);
         }
     }
 }
