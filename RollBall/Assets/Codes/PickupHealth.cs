@@ -4,6 +4,8 @@ namespace Kravchuk
 {
     public sealed class PickupHealth : Pickup, IFlyable, IResizable, IRotatable, IUpdatable
     {
+        private PickupType _ownType = PickupType.Health;
+
         private int _deltaPower = 99;
 
         private float _maxFlyHeight = 1f;
@@ -17,7 +19,7 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(GetType(), Random.Range(-_deltaPower, _deltaPower + 1));
+            EventStorageLink.InvokePickupEvent(_ownType, Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
         #region Interfaces

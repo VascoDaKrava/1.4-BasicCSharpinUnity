@@ -4,13 +4,15 @@ namespace Kravchuk
 {
     public sealed class PickupWin : Pickup, IFlyable, IUpdatable
     {
+        private PickupType _ownType = PickupType.Win;
+
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
         private int _pickupPower = 1;
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(GetType(), _pickupPower);
+            EventStorageLink.InvokePickupEvent(_ownType, _pickupPower);
         }
 
         #region Interfaces

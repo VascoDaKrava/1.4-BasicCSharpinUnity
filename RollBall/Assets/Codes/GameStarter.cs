@@ -62,7 +62,7 @@ namespace Kravchuk
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TypeE == typeof(PickupWin))
+            if (eventData.TypeP == Pickup.PickupType.Win)
             {
                 _winPoints -= eventData.PowerInt;
                 if (_winPoints > 0)

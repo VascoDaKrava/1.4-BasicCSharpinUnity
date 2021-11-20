@@ -33,20 +33,26 @@ namespace Kravchuk
         /// <param name="eventData"></param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TypeE == typeof(PickupHealth))
+            switch (eventData.TypeP)
             {
-                _playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
-                _playerModel.Health = eventData.PowerInt;
-                _playerView.ChangeHealth(_playerModel.Health);
+                case Pickup.PickupType.Health:
+                    _playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
+                    _playerModel.Health = eventData.PowerInt;
+                    _playerView.ChangeHealth(_playerModel.Health);
 
-                if (_playerModel.Health == 0)
-                    Die();
-            }
-            else
-                if (eventData.TypeE == typeof(PickupSpeed))
-            {
-                _playerModel.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
-                _playerView.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
+                    if (_playerModel.Health == 0)
+                        Die();
+                    
+                    break;
+                
+                case Pickup.PickupType.Speed:
+                    _playerModel.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
+                    _playerView.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
+
+                    break;
+                
+                default:
+                    break;
             }
         }
 

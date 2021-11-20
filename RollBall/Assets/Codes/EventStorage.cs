@@ -17,7 +17,7 @@ namespace Kravchuk
         /// </summary>
         /// <param name="type">Type of collected pickup</param>
         /// <param name="power">Power of collected pickup</param>
-        public void InvokePickupEvent(Type type, int power)
+        public void InvokePickupEvent(Pickup.PickupType type, int power)
         {
             _pickupEvent.Invoke(new EventArguments(type, power));
         }
@@ -28,7 +28,7 @@ namespace Kravchuk
         /// <param name="type">Type of collected pickup</param>
         /// <param name="power">Power of collected pickup</param>
         /// <param name="duration">Effect duration</param>
-        public void InvokePickupEvent(Type type, float power, float duration)
+        public void InvokePickupEvent(Pickup.PickupType type, float power, float duration)
         {
             _pickupEvent.Invoke(new EventArguments(type, power, duration));
         }
