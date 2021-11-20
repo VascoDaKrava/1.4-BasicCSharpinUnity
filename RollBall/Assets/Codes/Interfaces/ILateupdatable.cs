@@ -5,6 +5,6 @@ namespace Kravchuk
         /// <summary>
         /// Contains methods for running in Latepdate
         /// </summary>
-        public void DoItInLateupdate();
+        void DoItInLateupdate();
     }
 }

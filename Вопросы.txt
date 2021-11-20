@@ -1,1 +1,9 @@
 1. Как в одном классе явно реализовать интерфейс и затем в том же классе метод из этого интерфейса использовать при реализации другого интерфейса? На примере класса PickupHealth. Интерфейсы IFlyable и т.д. правильно использовал при реализации IUpdatable?
+
+2. Какие проблемы будут при явной реализации интерфейса? Звучало, что не получится скастить к нему, но код работает (класс Links):
+
+foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
+{
+item.EventStorageLink = EventStorageLink;
+Pickups.Add((IUpdatable)item);
+}
