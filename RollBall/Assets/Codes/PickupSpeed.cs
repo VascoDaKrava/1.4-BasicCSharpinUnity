@@ -18,14 +18,18 @@ namespace Kravchuk
                 );
         }
 
-        void IRotatable.Rotate(Transform transform, float speed)
+        #region Interfaces
+
+        public void Rotate(Transform transform, float speed)
         {
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
-            ((IRotatable)this).Rotate(transform, _rotationSpeed);
+            Rotate(transform, _rotationSpeed);
         }
+
+        #endregion
     }
 }

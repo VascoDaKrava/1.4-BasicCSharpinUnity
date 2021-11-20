@@ -32,9 +32,13 @@ namespace Kravchuk
             _mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, playerPosition + _offset, _speed * _speedMultiplier * Time.deltaTime);
         }
 
-        void ILateupdatable.DoItInLateupdate()
+        #region Interfaces
+
+        public void DoItInLateupdate()
         {
             LetMove(_playerRigidbody.position);
         }
+
+        #endregion
     }
 }

@@ -68,14 +68,18 @@ namespace Kravchuk
                 _playerModel.LetMove(_moveDirection);
         }
 
-        void IDisposable.Dispose()
+        #region Interfaces
+
+        public void Dispose()
         {
             _eventStorage.PickupEvent -= PickupCollected;
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
             LetMove();
         }
+
+        #endregion
     }
 }

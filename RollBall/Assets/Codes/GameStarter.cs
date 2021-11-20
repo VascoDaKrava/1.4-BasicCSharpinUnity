@@ -80,9 +80,13 @@ namespace Kravchuk
             Debug.Log("Now you win!");
         }
 
+        #region Interfaces
+
         public void Dispose()
         {
             _links.EventStorageLink.PickupEvent -= PickupCollected;
         }
+
+        #endregion
     }
 }

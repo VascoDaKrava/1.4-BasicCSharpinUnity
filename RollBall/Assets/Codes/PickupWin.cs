@@ -13,7 +13,9 @@ namespace Kravchuk
             EventStorageLink.InvokePickupEvent(GetType(), _pickupPower);
         }
 
-        void IFlyable.Fly(Transform transform, float maxHeightFly, float speedFly)
+        #region Interfaces
+
+        public void Fly(Transform transform, float maxHeightFly, float speedFly)
         {
             Vector3 newPosition;
 
@@ -24,9 +26,11 @@ namespace Kravchuk
             transform.localPosition = newPosition;
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
-            ((IFlyable)this).Fly(transform, _maxFlyHeight, _flySpeed);
+            Fly(transform, _maxFlyHeight, _flySpeed);
         }
+
+        #endregion
     }
 }
