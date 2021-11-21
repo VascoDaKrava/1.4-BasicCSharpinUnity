@@ -12,7 +12,7 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(_ownType, _pickupPower);
+            EventStorageLink.InvokePickupEvent(_ownType, this, _pickupPower);
         }
 
         #region Interfaces

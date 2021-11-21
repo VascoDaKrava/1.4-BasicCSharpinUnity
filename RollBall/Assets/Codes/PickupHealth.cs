@@ -19,7 +19,7 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(_ownType, Random.Range(-_deltaPower, _deltaPower + 1));
+            EventStorageLink.InvokePickupEvent(_ownType, this, Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
         #region Interfaces

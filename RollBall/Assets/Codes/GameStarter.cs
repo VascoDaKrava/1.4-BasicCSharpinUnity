@@ -6,8 +6,6 @@ namespace Kravchuk
 {
     public sealed class GameStarter : MonoBehaviour, IDisposable
     {
-        private bool _needRemoveFromUpdate = false;
-
         private int _winPoints = 5;
 
         private List<IUpdatable> _updatables;
@@ -35,16 +33,7 @@ namespace Kravchuk
         {
             foreach (IUpdatable item in _updatables)
             {
-                if (item.Equals(null))
-                    _needRemoveFromUpdate = true;
-                else
                     item.DoItInUpdate();
-            }
-
-            if (_needRemoveFromUpdate)
-            {
-                _updatables.Remove(null);
-                _needRemoveFromUpdate = false;
             }
         }
 
@@ -62,6 +51,8 @@ namespace Kravchuk
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)
         {
+            _updatables.Remove((IUpdatable)eventData.Obj);
+
             if (eventData.TypeP == Pickup.PickupType.Win)
             {
                 _winPoints -= eventData.PowerInt;

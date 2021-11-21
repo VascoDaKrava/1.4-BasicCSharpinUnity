@@ -15,6 +15,7 @@ namespace Kravchuk
         {
             EventStorageLink.InvokePickupEvent(
                 _ownType,
+                this,
                 Random.Range(-_deltaSpeed, _deltaSpeed),
                 Random.Range(_minDuration, _maxDuration)
                 );
