@@ -15,6 +15,11 @@ namespace Kravchuk
 
         private void Awake()
         {
+            #region Lesson-5/7 Data struct
+            Debug.LogWarning($"Quantity chars \'a\' in the \"aaccdd0a\" : " +
+                $"{ "aaccdd0a".QuantityChars('a') }");
+            #endregion
+
             _links = new Links();
 
             _updatables = new List<IUpdatable>();
@@ -33,7 +38,7 @@ namespace Kravchuk
         {
             foreach (IUpdatable item in _updatables)
             {
-                    item.DoItInUpdate();
+                item.DoItInUpdate();
             }
         }
 
