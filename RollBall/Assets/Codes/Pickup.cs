@@ -26,7 +26,7 @@ namespace Kravchuk
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(StaticValues.PlayerTag))
             {
                 Interaction();
                 Destroy(gameObject);

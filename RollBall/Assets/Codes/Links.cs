@@ -8,9 +8,6 @@ namespace Kravchuk
     /// </summary>
     public sealed class Links
     {
-        private string _playerTag = "Player";
-        private string _cameraTag = "MainCamera";
-
         public Rigidbody PlayerRigidbodyLink { get; }
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
@@ -19,9 +16,9 @@ namespace Kravchuk
 
         public Links()
         {
-            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(_playerTag).GetComponent<Rigidbody>();
+            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
             CameraControllerLink = new CameraController(
-                GameObject.FindGameObjectWithTag(_cameraTag).GetComponent<Camera>(),
+                GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
                 PlayerRigidbodyLink
                 );
             EventStorageLink = new EventStorage();
