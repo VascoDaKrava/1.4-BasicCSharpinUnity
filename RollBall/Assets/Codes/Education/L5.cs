@@ -37,7 +37,10 @@ namespace Kravchuk
         public void DoItInUpdate()
         {
             if (_im.IsFivePress)
+            {
                 DoIt();
+                new L5_4Lambda();
+            }
         }
     }
 }
