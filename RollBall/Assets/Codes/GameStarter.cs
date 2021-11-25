@@ -15,17 +15,18 @@ namespace Kravchuk
 
         private void Awake()
         {
-            #region Lesson-5/7 Data struct
-            Debug.LogWarning($"Quantity chars \'a\' in the \"aaccdd0a\" : " +
-                $"{ "aaccdd0a".QuantityChars('a') }");
-            #endregion
-
             _links = new Links();
 
             _updatables = new List<IUpdatable>();
             _lateUpdatables = new List<ILateupdatable>();
 
             _lateUpdatables.Add(_links.CameraControllerLink);
+
+            #region Lesson5
+
+            _updatables.Add(new L5());
+
+            #endregion
 
             _updatables.Add(_links.PlayerControllerLink);
             _updatables.AddRange(_links.Pickups);

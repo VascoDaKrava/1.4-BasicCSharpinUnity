@@ -6,8 +6,9 @@ namespace Kravchuk
     {
         private Vector3 _direction;
 
-        public bool IsStop { 
-            get { return Input.GetButton("Stop"); } 
+        public bool IsStop
+        {
+            get { return Input.GetButton("Stop"); }
         }
 
         /// <summary>
@@ -19,9 +20,13 @@ namespace Kravchuk
             _direction.x = Input.GetAxis("Horizontal");
             _direction.y = 0;
             _direction.z = Input.GetAxis("Vertical");
-                        
+
             return _direction.normalized;
         }
 
+        public bool IsFivePress
+        {
+            get { return Input.GetKeyDown(KeyCode.Alpha5); }
+        }
     }
 }
