@@ -10,6 +10,10 @@ public static class StaticValues
     public const string PlayerTag = "Player";
     public const string CameraTag = "MainCamera";
 
+    public const string TagHealthUI = "TagHealthUI";
+    public const string TagSpeedUI = "TagSpeedUI";
+    public const string TagWinUI = "TagWinUI";
+
     #endregion
 
     #region Keys and axises

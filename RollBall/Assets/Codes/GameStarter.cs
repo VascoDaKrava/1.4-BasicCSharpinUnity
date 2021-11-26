@@ -52,7 +52,7 @@ namespace Kravchuk
         }
 
         /// <summary>
-        /// Event hendler
+        /// Event handler
         /// </summary>
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)

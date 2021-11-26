@@ -16,7 +16,7 @@ namespace Kravchuk
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElements elementsUI)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;
@@ -24,11 +24,14 @@ namespace Kravchuk
             _inputManager = new InputManager();
 
             _playerModel = new PlayerModel(rigidbody);
-            _playerView = new PlayerView();
+            _playerView = new PlayerView(elementsUI);
+
+            _playerView.ChangeHealth(_playerModel.Health, false);
+            _playerView.ChangeSpeed(_playerModel.CurrentSpeed);
         }
 
         /// <summary>
-        /// Event hendler
+        /// Event handler
         /// </summary>
         /// <param name="eventData"></param>
         private void PickupCollected(EventArguments eventData)
@@ -36,9 +39,9 @@ namespace Kravchuk
             switch (eventData.TypeP)
             {
                 case Pickup.PickupType.Health:
-                    _playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
+                    //_playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
                     _playerModel.Health = eventData.PowerInt;
-                    _playerView.ChangeHealth(_playerModel.Health);
+                    _playerView.ChangeHealth(_playerModel.Health, eventData.PowerInt < 0 ? true : false);
 
                     if (_playerModel.Health == 0)
                         Die();
@@ -94,6 +97,7 @@ namespace Kravchuk
         public void DoItInUpdate()
         {
             LetMove();
+            _playerView.ForTime();
         }
 
         #endregion
