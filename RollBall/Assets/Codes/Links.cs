@@ -14,10 +14,16 @@ namespace Kravchuk
         public CameraController CameraControllerLink { get; }
         public List<IUpdatable> Pickups { get; }
         public UIElements UIElementsLink { get; }
+        public GameWin GameWinLink { get; }
+        public GameLose GameLoseLink { get; }
 
         public Links()
         {
             UIElementsLink = new UIElements();
+            EventStorageLink = new EventStorage();
+            Pickups = new List<IUpdatable>();
+            GameLoseLink = new GameLose();
+
             PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
             
             CameraControllerLink = new CameraController(
@@ -25,10 +31,10 @@ namespace Kravchuk
                 PlayerRigidbodyLink
                 );
 
-            EventStorageLink = new EventStorage();
-            PlayerControllerLink = new PlayerController(EventStorageLink, PlayerRigidbodyLink, UIElementsLink);
-            
-            Pickups = new List<IUpdatable>();
+            PlayerControllerLink = new PlayerController(EventStorageLink, PlayerRigidbodyLink, UIElementsLink, GameLoseLink);
+
+            GameWinLink = new GameWin(EventStorageLink, UIElementsLink);
+
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
                 item.EventStorageLink = EventStorageLink;

@@ -11,15 +11,19 @@ namespace Kravchuk
         private PlayerModel _playerModel;
         private PlayerView _playerView;
 
+        private GameLose _gameLose;
+
         /// <summary>
         /// Create PlayerController
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElements elementsUI)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElements elementsUI, GameLose gameLose)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;
+
+            _gameLose = gameLose;
 
             _inputManager = new InputManager();
 
@@ -64,7 +68,9 @@ namespace Kravchuk
         /// </summary>
         private void Die()
         {
-            Debug.LogWarning("Now DIE !");
+            Dispose();
+            _eventStorage.InvokePickupEvent(this);
+            _gameLose.PlayerDie();
         }
 
         /// <summary>

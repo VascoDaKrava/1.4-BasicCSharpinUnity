@@ -30,6 +30,15 @@ namespace Kravchuk
         public float Duration { get; } = 0f;
 
         /// <summary>
+        /// One EventArgs
+        /// </summary>
+        /// <param name="obj"></param>
+        public EventArguments(object obj)
+        {
+            Obj = obj;
+        }
+
+        /// <summary>
         /// Three EventArgs
         /// </summary>
         /// <param name="type"></param>

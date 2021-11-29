@@ -13,6 +13,15 @@ namespace Kravchuk
         }
 
         /// <summary>
+        /// Invoke event from object obj
+        /// </summary>
+        /// <param name="obj">Link to object</param>
+        public void InvokePickupEvent(object obj)
+        {
+            _pickupEvent.Invoke(new EventArguments(obj));
+        }
+
+        /// <summary>
         /// Invoke event for pickup with type and power
         /// </summary>
         /// <param name="type">Type of collected pickup</param>
