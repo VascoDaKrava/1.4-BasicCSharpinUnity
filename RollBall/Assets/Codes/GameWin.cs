@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Kravchuk
 {
     public sealed class GameWin
@@ -9,9 +7,9 @@ namespace Kravchuk
 
         private EventStorage _eventStorage;
 
-        private UIElements _elementsUI;
+        private UIElems _elementsUI;
 
-        public GameWin(EventStorage eventStorage, UIElements elementsUI)
+        public GameWin(EventStorage eventStorage, UIElems elementsUI)
         {
             _elementsUI = elementsUI;
             _eventStorage = eventStorage;
@@ -28,10 +26,14 @@ namespace Kravchuk
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TypeP == Pickup.PickupType.Win)
+            if (eventData.TypeP == PickupType.Win)
                 ChangePoints(eventData.PowerInt);
         }
 
+        /// <summary>
+        /// Change win-poins by value
+        /// </summary>
+        /// <param name="point">How many points for change</param>
         private void ChangePoints(int point)
         {
                 _currentWinPoints += point;
@@ -46,7 +48,10 @@ namespace Kravchuk
         /// </summary>
         private void Win()
         {
-            Debug.Log("Now you win!");
+            _elementsUI.MenuText = "Congratulations!\nYou win!";
+            _elementsUI.ChangeButtonVisible(ButtonsName.Load, true);
+            _elementsUI.ChangeButtonVisible(ButtonsName.Restart, true);
+            _elementsUI.MenuVisible = true;
         }
 
         ~GameWin()

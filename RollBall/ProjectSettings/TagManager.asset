@@ -7,6 +7,14 @@ TagManager:
   - TagHealthUI
   - TagSpeedUI
   - TagWinUI
+  - TagMenuUI
+  - TagBtnRestart
+  - TagBtnSave
+  - TagBtnLoad
+  - TagBtnOK
+  - TagBtnBack
+  - TagBtnExit
+  - TagMenuText
   layers:
   - Default
   - TransparentFX

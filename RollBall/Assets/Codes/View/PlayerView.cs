@@ -19,7 +19,7 @@ namespace Kravchuk
         /// </summary>
         private Color _colorNormalValue = Color.white;
 
-        private UIElements _elementsUI;
+        private UIElems _elementsUI;
 
         /// <summary>
         /// Time in seconds to apply good/bad color
@@ -31,7 +31,7 @@ namespace Kravchuk
 
         private float _normalSpeed;
 
-        public PlayerView(UIElements uIElements)
+        public PlayerView(UIElems uIElements)
         {
             _elementsUI = uIElements;
             _normalSpeed = 0f;

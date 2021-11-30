@@ -8,32 +8,35 @@ namespace Kravchuk
     /// </summary>
     public sealed class Links
     {
-        public Rigidbody PlayerRigidbodyLink { get; }
+        private Rigidbody _playerRigidbodyLink;
+        private UIElems _elementsUILink;
+        private GameWin _gameWinLink;
+        private GameLose _gameLoseLink;
+
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
         public CameraController CameraControllerLink { get; }
         public List<IUpdatable> Pickups { get; }
-        public UIElements UIElementsLink { get; }
-        public GameWin GameWinLink { get; }
-        public GameLose GameLoseLink { get; }
+
+        private UIButtonsClickHandler _buttonsClickHandler;
 
         public Links()
         {
-            UIElementsLink = new UIElements();
+            _elementsUILink = new UIElems();
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
-            GameLoseLink = new GameLose();
 
-            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
+            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
             
             CameraControllerLink = new CameraController(
                 GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
-                PlayerRigidbodyLink
+                _playerRigidbodyLink
                 );
 
-            PlayerControllerLink = new PlayerController(EventStorageLink, PlayerRigidbodyLink, UIElementsLink, GameLoseLink);
+            PlayerControllerLink = new PlayerController(EventStorageLink, _playerRigidbodyLink, _elementsUILink, _gameLoseLink);
 
-            GameWinLink = new GameWin(EventStorageLink, UIElementsLink);
+            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
+            _gameLoseLink = new GameLose(_elementsUILink);
 
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {

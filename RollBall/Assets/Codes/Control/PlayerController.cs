@@ -18,7 +18,7 @@ namespace Kravchuk
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElements elementsUI, GameLose gameLose)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;
@@ -42,7 +42,7 @@ namespace Kravchuk
         {
             switch (eventData.TypeP)
             {
-                case Pickup.PickupType.Health:
+                case PickupType.Health:
                     //_playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
                     _playerModel.Health = eventData.PowerInt;
                     _playerView.ChangeHealth(_playerModel.Health, eventData.PowerInt < 0 ? true : false);
@@ -52,7 +52,7 @@ namespace Kravchuk
                     
                     break;
                 
-                case Pickup.PickupType.Speed:
+                case PickupType.Speed:
                     _playerModel.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
                     _playerView.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
 
