@@ -12,7 +12,7 @@ namespace Kravchuk
         /// <summary>
         /// Pickup type
         /// </summary>
-        public Pickup.PickupType TypeP { get; }
+        public PickupType TypeP { get; }
 
         /// <summary>
         /// Power integer
@@ -30,12 +30,21 @@ namespace Kravchuk
         public float Duration { get; } = 0f;
 
         /// <summary>
+        /// One EventArgs
+        /// </summary>
+        /// <param name="obj"></param>
+        public EventArguments(object obj)
+        {
+            Obj = obj;
+        }
+
+        /// <summary>
         /// Three EventArgs
         /// </summary>
         /// <param name="type"></param>
         /// <param name="obj"></param>
         /// <param name="power"></param>
-        public EventArguments(Pickup.PickupType type, object obj, int power)
+        public EventArguments(PickupType type, object obj, int power)
         {
             Obj = obj;
             TypeP = type;
@@ -49,7 +58,7 @@ namespace Kravchuk
         /// <param name="obj"></param>
         /// <param name="power"></param>
         /// <param name="duration"></param>
-        public EventArguments(Pickup.PickupType type, object obj, float power, float duration)
+        public EventArguments(PickupType type, object obj, float power, float duration)
         {
             Obj = obj;
             TypeP = type;

@@ -8,26 +8,39 @@ namespace Kravchuk
     /// </summary>
     public sealed class Links
     {
-        private string _playerTag = "Player";
-        private string _cameraTag = "MainCamera";
+        private Rigidbody _playerRigidbodyLink;
+        private UIElems _elementsUILink;
+        private GameWin _gameWinLink;
+        private GameLose _gameLoseLink;
 
-        public Rigidbody PlayerRigidbodyLink { get; }
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
         public CameraController CameraControllerLink { get; }
         public List<IUpdatable> Pickups { get; }
 
+        private UIButtonsClickHandler _buttonsClickHandler;
+
         public Links()
         {
-            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(_playerTag).GetComponent<Rigidbody>();
-            CameraControllerLink = new CameraController(
-                GameObject.FindGameObjectWithTag(_cameraTag).GetComponent<Camera>(),
-                PlayerRigidbodyLink
-                );
+            _elementsUILink = new UIElems();
             EventStorageLink = new EventStorage();
-            PlayerControllerLink = new PlayerController(EventStorageLink, PlayerRigidbodyLink);
-            
             Pickups = new List<IUpdatable>();
+
+            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
+
+            _buttonsClickHandler = GameObject.FindGameObjectWithTag(StaticValues.GameControllerTag).GetComponent<UIButtonsClickHandler>();
+            _buttonsClickHandler.ElemsUI = _elementsUILink;
+
+            CameraControllerLink = new CameraController(
+                GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
+                _playerRigidbodyLink
+                );
+
+            PlayerControllerLink = new PlayerController(EventStorageLink, _playerRigidbodyLink, _elementsUILink, _gameLoseLink);
+
+            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
+            _gameLoseLink = new GameLose(_elementsUILink);
+
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
                 item.EventStorageLink = EventStorageLink;

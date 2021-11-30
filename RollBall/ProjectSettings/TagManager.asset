@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TagHealthUI
+  - TagSpeedUI
+  - TagWinUI
+  - TagMenuUI
+  - TagBtnRestart
+  - TagBtnSave
+  - TagBtnLoad
+  - TagBtnOK
+  - TagBtnBack
+  - TagBtnExit
+  - TagMenuText
   layers:
   - Default
   - TransparentFX

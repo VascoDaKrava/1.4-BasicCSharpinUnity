@@ -2,23 +2,23 @@ using UnityEngine;
 
 namespace Kravchuk
 {
+    /// <summary>
+    /// Pickup type
+    /// </summary>
+    public enum PickupType
+    {
+        Health,
+        Speed,
+        Win
+    }
+
     public abstract class Pickup : MonoBehaviour
     {
         /// <summary>
-        /// Pickup type
-        /// </summary>
-        public enum PickupType
-        {
-            Health,
-            Speed,
-            Win
-        }
-
-        /// <summary>
         /// Link to EventStorage
         /// </summary>
-        public EventStorage EventStorageLink { get;  set; }
-        
+        public EventStorage EventStorageLink { get; set; }
+
         /// <summary>
         /// Do action, when Player enter in trigger
         /// </summary>
@@ -26,7 +26,7 @@ namespace Kravchuk
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(StaticValues.PlayerTag))
             {
                 Interaction();
                 Destroy(gameObject);

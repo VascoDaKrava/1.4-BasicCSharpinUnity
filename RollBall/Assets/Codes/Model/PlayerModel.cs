@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    public class PlayerModel
+    public sealed class PlayerModel
     {
         private int _health = 100;
         private int _minHealth = 0;
