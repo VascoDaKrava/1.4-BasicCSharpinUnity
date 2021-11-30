@@ -4,6 +4,8 @@ namespace Kravchuk
 {
     public sealed class PickupSpeed : Pickup, IRotatable, IUpdatable
     {
+        private PickupType _ownType = PickupType.Speed;
+
         private float _rotationSpeed = 30f;
         private float _deltaSpeed = 4f;
         private float _minDuration = 1f;
@@ -12,20 +14,25 @@ namespace Kravchuk
         protected override void Interaction()
         {
             EventStorageLink.InvokePickupEvent(
-                GetType(),
+                _ownType,
+                this,
                 Random.Range(-_deltaSpeed, _deltaSpeed),
                 Random.Range(_minDuration, _maxDuration)
                 );
         }
 
-        void IRotatable.Rotate(Transform transform, float speed)
+        #region Interfaces
+
+        public void Rotate(Transform transform, float speed)
         {
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
-            ((IRotatable)this).Rotate(transform, _rotationSpeed);
+            Rotate(transform, _rotationSpeed);
         }
+
+        #endregion
     }
 }

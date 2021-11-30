@@ -9,6 +9,7 @@ namespace Kravchuk
         private InputManager _inputManager;
         private EventStorage _eventStorage;
         private PlayerModel _playerModel;
+        private PlayerView _playerView;
 
         /// <summary>
         /// Create PlayerController
@@ -23,6 +24,7 @@ namespace Kravchuk
             _inputManager = new InputManager();
 
             _playerModel = new PlayerModel(rigidbody);
+            _playerView = new PlayerView();
         }
 
         /// <summary>
@@ -31,16 +33,27 @@ namespace Kravchuk
         /// <param name="eventData"></param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TypeE == typeof(PickupHealth))
+            switch (eventData.TypeP)
             {
-                _playerModel.Health = eventData.PowerInt;
+                case Pickup.PickupType.Health:
+                    _playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
+                    _playerModel.Health = eventData.PowerInt;
+                    _playerView.ChangeHealth(_playerModel.Health);
+
+                    if (_playerModel.Health == 0)
+                        Die();
+                    
+                    break;
                 
-                if (_playerModel.Health == 0)
-                    Die();
+                case Pickup.PickupType.Speed:
+                    _playerModel.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
+                    _playerView.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
+
+                    break;
+                
+                default:
+                    break;
             }
-            else
-                if (eventData.TypeE == typeof(PickupSpeed))
-                _playerModel.ChangeSpeed(eventData.PowerFloat, eventData.Duration);
         }
 
         /// <summary>
@@ -59,23 +72,30 @@ namespace Kravchuk
             if (_inputManager.IsStop)
             {
                 _playerModel.ChangeSpeed(0f, 0f);
+                _playerView.ServiceMessage("Now stop!");
                 return;
             }
 
             _moveDirection = _inputManager.GetDirection();
 
             if (_moveDirection != Vector3.zero)
+            {
                 _playerModel.LetMove(_moveDirection);
+            }
         }
 
-        void IDisposable.Dispose()
+        #region Interfaces
+
+        public void Dispose()
         {
             _eventStorage.PickupEvent -= PickupCollected;
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
             LetMove();
         }
+
+        #endregion
     }
 }

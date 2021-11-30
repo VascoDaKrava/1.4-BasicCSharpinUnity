@@ -4,16 +4,20 @@ namespace Kravchuk
 {
     public sealed class PickupWin : Pickup, IFlyable, IUpdatable
     {
+        private PickupType _ownType = PickupType.Win;
+
         private float _maxFlyHeight = 1f;
         private float _flySpeed = 2f;
         private int _pickupPower = 1;
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(GetType(), _pickupPower);
+            EventStorageLink.InvokePickupEvent(_ownType, this, _pickupPower);
         }
 
-        void IFlyable.Fly(Transform transform, float maxHeightFly, float speedFly)
+        #region Interfaces
+
+        public void Fly(Transform transform, float maxHeightFly, float speedFly)
         {
             Vector3 newPosition;
 
@@ -24,9 +28,11 @@ namespace Kravchuk
             transform.localPosition = newPosition;
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
-            ((IFlyable)this).Fly(transform, _maxFlyHeight, _flySpeed);
+            Fly(transform, _maxFlyHeight, _flySpeed);
         }
+
+        #endregion
     }
 }

@@ -6,8 +6,6 @@ namespace Kravchuk
 {
     public sealed class GameStarter : MonoBehaviour, IDisposable
     {
-        private bool _needRemoveFromUpdate = false;
-
         private int _winPoints = 5;
 
         private List<IUpdatable> _updatables;
@@ -24,6 +22,12 @@ namespace Kravchuk
 
             _lateUpdatables.Add(_links.CameraControllerLink);
 
+            #region Lesson5
+
+            _updatables.Add(new L5());
+
+            #endregion
+
             _updatables.Add(_links.PlayerControllerLink);
             _updatables.AddRange(_links.Pickups);
 
@@ -35,16 +39,7 @@ namespace Kravchuk
         {
             foreach (IUpdatable item in _updatables)
             {
-                if (item.Equals(null))
-                    _needRemoveFromUpdate = true;
-                else
-                    item.DoItInUpdate();
-            }
-
-            if (_needRemoveFromUpdate)
-            {
-                _updatables.Remove(null);
-                _needRemoveFromUpdate = false;
+                item.DoItInUpdate();
             }
         }
 
@@ -62,7 +57,9 @@ namespace Kravchuk
         /// <param name="eventData">Data that was received from event</param>
         private void PickupCollected(EventArguments eventData)
         {
-            if (eventData.TypeE == typeof(PickupWin))
+            _updatables.Remove((IUpdatable)eventData.Obj);
+
+            if (eventData.TypeP == Pickup.PickupType.Win)
             {
                 _winPoints -= eventData.PowerInt;
                 if (_winPoints > 0)
@@ -80,9 +77,13 @@ namespace Kravchuk
             Debug.Log("Now you win!");
         }
 
+        #region Interfaces
+
         public void Dispose()
         {
             _links.EventStorageLink.PickupEvent -= PickupCollected;
         }
+
+        #endregion
     }
 }

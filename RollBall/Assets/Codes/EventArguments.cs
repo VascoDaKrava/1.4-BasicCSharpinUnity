@@ -5,9 +5,14 @@ namespace Kravchuk
     public sealed class EventArguments : EventArgs
     {
         /// <summary>
-        /// Type
+        /// Object
         /// </summary>
-        public Type TypeE { get; }
+        public object Obj { get; } = null;
+
+        /// <summary>
+        /// Pickup type
+        /// </summary>
+        public Pickup.PickupType TypeP { get; }
 
         /// <summary>
         /// Power integer
@@ -25,25 +30,29 @@ namespace Kravchuk
         public float Duration { get; } = 0f;
 
         /// <summary>
-        /// Two EventArgs
+        /// Three EventArgs
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="obj"></param>
         /// <param name="power"></param>
-        public EventArguments(Type type, int power)
+        public EventArguments(Pickup.PickupType type, object obj, int power)
         {
-            TypeE = type;
+            Obj = obj;
+            TypeP = type;
             PowerInt = power;
         }
 
         /// <summary>
-        /// Three EventArgs
+        /// Four EventArgs
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="obj"></param>
         /// <param name="power"></param>
         /// <param name="duration"></param>
-        public EventArguments(Type type, float power, float duration)
+        public EventArguments(Pickup.PickupType type, object obj, float power, float duration)
         {
-            TypeE = type;
+            Obj = obj;
+            TypeP = type;
             PowerFloat = power;
             Duration = duration;
         }

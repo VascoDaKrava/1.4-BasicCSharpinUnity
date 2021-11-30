@@ -4,6 +4,8 @@ namespace Kravchuk
 {
     public sealed class PickupHealth : Pickup, IFlyable, IResizable, IRotatable, IUpdatable
     {
+        private PickupType _ownType = PickupType.Health;
+
         private int _deltaPower = 99;
 
         private float _maxFlyHeight = 1f;
@@ -17,10 +19,12 @@ namespace Kravchuk
 
         protected override void Interaction()
         {
-            EventStorageLink.InvokePickupEvent(GetType(), Random.Range(-_deltaPower, _deltaPower + 1));
+            EventStorageLink.InvokePickupEvent(_ownType, this, Random.Range(-_deltaPower, _deltaPower + 1));
         }
 
-        void IFlyable.Fly(Transform transform, float maxHeight, float speed)
+        #region Interfaces
+
+        public void Fly(Transform transform, float maxHeight, float speed)
         {
             Vector3 newPosition;
 
@@ -31,12 +35,12 @@ namespace Kravchuk
             transform.localPosition = newPosition;
         }
 
-        void IRotatable.Rotate(Transform transform, float speed)
+        public void Rotate(Transform transform, float speed)
         {
             transform.RotateAround(transform.position, Vector3.up, Time.deltaTime * speed);
         }
 
-        void IResizable.Resize(Transform transform, float minScale, float maxScale, float speed)
+        public void Resize(Transform transform, float minScale, float maxScale, float speed)
         {
             Vector3 newScale;
 
@@ -47,11 +51,13 @@ namespace Kravchuk
             transform.localScale = newScale;
         }
 
-        void IUpdatable.DoItInUpdate()
+        public void DoItInUpdate()
         {
-            ((IFlyable)this).Fly(transform, _maxFlyHeight, _flySpeed);
-            ((IRotatable)this).Rotate(transform, _rotationSpeed);
-            ((IResizable)this).Resize(transform, _minScale, _maxScale, _scaleSpeed);
+            Fly(transform, _maxFlyHeight, _flySpeed);
+            Rotate(transform, _rotationSpeed);
+            Resize(transform, _minScale, _maxScale, _scaleSpeed);
         }
+
+        #endregion
     }
 }

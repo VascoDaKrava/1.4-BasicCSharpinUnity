@@ -16,12 +16,10 @@ namespace Kravchuk
 
         private Rigidbody _playerRigidbody;
 
-        private PlayerView _playerView;
-
         #region Properties
 
         /// <summary>
-        /// Change player health by value
+        /// Current health
         /// </summary>
         public int Health
         {
@@ -29,11 +27,7 @@ namespace Kravchuk
 
             set
             {
-                _playerView.ServiceMessage($"Changing health by {value}");
-
                 _health = Mathf.Clamp(_health + value, _minHealth, _maxHealth);
-
-                _playerView.ChangeHealth(_health);
             }
         }
 
@@ -46,7 +40,6 @@ namespace Kravchuk
 
         public PlayerModel(Rigidbody rigidbody)
         {
-            _playerView = new PlayerView();
             _playerRigidbody = rigidbody;
             CurrentSpeed = _originSpeed;
         }
@@ -61,11 +54,8 @@ namespace Kravchuk
             if (deltaSpeed == 0 && duration == 0)
             {
                 _playerRigidbody.velocity = Vector3.zero;
-                _playerView.ServiceMessage("Now stop!");
                 return;
             }
-
-            _playerView.ChangeSpeed(deltaSpeed, duration);
 
             _changedSpeed = CurrentSpeed + deltaSpeed;
             CurrentSpeed += deltaSpeed;
@@ -93,8 +83,6 @@ namespace Kravchuk
                 {
                     _needChangeSpeed = false;
                     CurrentSpeed = _originSpeed;
-
-                    _playerView.ChangeSpeed(CurrentSpeed);
                 }
                 else
                 {

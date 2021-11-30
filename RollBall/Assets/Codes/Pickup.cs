@@ -5,6 +5,16 @@ namespace Kravchuk
     public abstract class Pickup : MonoBehaviour
     {
         /// <summary>
+        /// Pickup type
+        /// </summary>
+        public enum PickupType
+        {
+            Health,
+            Speed,
+            Win
+        }
+
+        /// <summary>
         /// Link to EventStorage
         /// </summary>
         public EventStorage EventStorageLink { get;  set; }

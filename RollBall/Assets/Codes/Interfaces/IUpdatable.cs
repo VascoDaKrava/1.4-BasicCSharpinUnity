@@ -5,6 +5,6 @@ namespace Kravchuk
         /// <summary>
         /// Contains methods for running in Update
         /// </summary>
-        public void DoItInUpdate();
+        void DoItInUpdate();
     }
 }
