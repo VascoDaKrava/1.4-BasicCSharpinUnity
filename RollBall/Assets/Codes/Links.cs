@@ -27,7 +27,10 @@ namespace Kravchuk
             Pickups = new List<IUpdatable>();
 
             _playerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
-            
+
+            _buttonsClickHandler = GameObject.FindGameObjectWithTag(StaticValues.GameControllerTag).GetComponent<UIButtonsClickHandler>();
+            _buttonsClickHandler.ElemsUI = _elementsUILink;
+
             CameraControllerLink = new CameraController(
                 GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
                 _playerRigidbodyLink

@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Kravchuk
 {
     public class UIButtonsClickHandler : MonoBehaviour
     {
+        public UIElems ElemsUI { get; set; }
+
         public void onClickOK()
         {
             Debug.Log("Press OK");
@@ -16,12 +19,15 @@ namespace Kravchuk
 
         public void onClickExit()
         {
-            Debug.Log("Press Exit");
+            ElemsUI.HideAllButtons();
+            ElemsUI.MenuVisible = false;
         }
 
         public void onClickRestart()
         {
-            Debug.Log("Press Restart");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            ElemsUI.HideAllButtons();
+            ElemsUI.MenuVisible = false;
         }
 
         public void onClickSave()
