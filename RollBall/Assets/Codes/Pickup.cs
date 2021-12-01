@@ -7,9 +7,9 @@ namespace Kravchuk
     /// </summary>
     public enum PickupType
     {
-        Health,
-        Speed,
-        Win
+        Health = 0,
+        Speed = 1,
+        Win = 2
     }
 
     public abstract class Pickup : MonoBehaviour
