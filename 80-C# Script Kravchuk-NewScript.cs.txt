@@ -1,8 +1,6 @@
 namespace Kravchuk
 {
-
     public sealed class #SCRIPTNAME#
-
     {
         #NOTRIM#
     }
