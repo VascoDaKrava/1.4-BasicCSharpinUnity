@@ -43,7 +43,6 @@ namespace Kravchuk
             switch (eventData.TypeP)
             {
                 case PickupType.Health:
-                    //_playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
                     _playerModel.Health = eventData.PowerInt;
                     _playerView.ChangeHealth(_playerModel.Health, eventData.PowerInt < 0 ? true : false);
 
@@ -81,7 +80,6 @@ namespace Kravchuk
             if (_inputManager.IsStop)
             {
                 _playerModel.ChangeSpeed(0f, 0f);
-                _playerView.ServiceMessage("Now stop!");
                 return;
             }
 

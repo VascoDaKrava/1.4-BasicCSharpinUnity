@@ -27,7 +27,8 @@ namespace Kravchuk
             if (GUILayout.Button($"Simulate Update"))
             {
                 _pickupHealth.DoItInUpdate();
-                EditorUtility.SetDirty(_pickupHealth);
+
+                // Mark scene as modified/Dirty
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
 

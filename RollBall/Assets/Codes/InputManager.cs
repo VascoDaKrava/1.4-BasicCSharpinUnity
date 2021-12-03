@@ -8,7 +8,7 @@ namespace Kravchuk
 
         public bool IsStop
         {
-            get { return Input.GetButton(StaticValues.ButtonStop); }
+            get { return Input.GetButton(InputKeysAndAxis.ButtonStop); }
         }
 
         /// <summary>
@@ -17,16 +17,16 @@ namespace Kravchuk
         /// <returns></returns>
         public Vector3 GetDirection()
         {
-            _direction.x = Input.GetAxis(StaticValues.AxisHorizontal);
+            _direction.x = Input.GetAxis(InputKeysAndAxis.AxisHorizontal);
             _direction.y = 0;
-            _direction.z = Input.GetAxis(StaticValues.AxisVertical);
+            _direction.z = Input.GetAxis(InputKeysAndAxis.AxisVertical);
 
             return _direction.normalized;
         }
 
         public bool IsFivePress
         {
-            get { return Input.GetKeyDown(StaticValues.ButtonFive); }
+            get { return Input.GetKeyDown(InputKeysAndAxis.ButtonFive); }
         }
     }
 }

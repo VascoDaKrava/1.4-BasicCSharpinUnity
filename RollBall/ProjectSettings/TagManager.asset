@@ -15,6 +15,7 @@ TagManager:
   - TagBtnBack
   - TagBtnExit
   - TagMenuText
+  - TagPickUpParent
   layers:
   - Default
   - TransparentFX

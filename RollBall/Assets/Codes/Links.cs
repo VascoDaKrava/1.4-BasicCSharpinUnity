@@ -26,13 +26,13 @@ namespace Kravchuk
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
 
-            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
+            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<Rigidbody>();
 
-            _buttonsClickHandler = GameObject.FindGameObjectWithTag(StaticValues.GameControllerTag).GetComponent<UIButtonsClickHandler>();
+            _buttonsClickHandler = GameObject.FindGameObjectWithTag(Tags.GameControllerTag).GetComponent<UIButtonsClickHandler>();
             _buttonsClickHandler.ElemsUI = _elementsUILink;
 
             CameraControllerLink = new CameraController(
-                GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
+                GameObject.FindGameObjectWithTag(Tags.CameraTag).GetComponent<Camera>(),
                 _playerRigidbodyLink
                 );
 
