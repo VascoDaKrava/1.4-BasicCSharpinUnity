@@ -10,12 +10,12 @@ namespace Kravchuk
     /// </summary>
     public enum ButtonsName
     {
-        Restart,
-        Save,
-        Load,
-        OK,
-        Back,
-        Exit
+        Restart = 0,
+        Save = 1,
+        Load = 2,
+        OK = 3,
+        Back = 4,
+        Exit = 5
     }
 
     public sealed class UIElems

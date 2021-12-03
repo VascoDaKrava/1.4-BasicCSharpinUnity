@@ -7,6 +7,17 @@ namespace Kravchuk
     /// </summary>
     public static class StaticValues
     {
+
+        public const string PickupParentName = "PickUps";
+
+        #region Resources
+
+        public const string ResourcePickupHealth = "PickupHealth";
+        public const string ResourcePickupSpeed = "PickupSpeed";
+        public const string ResourcePickupWin = "PickupWin";
+
+        #endregion
+
         #region Tags
 
         public const string GameControllerTag = "GameController";
