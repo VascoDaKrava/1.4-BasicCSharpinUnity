@@ -114,9 +114,13 @@ namespace Kravchuk
             _buttonsDic.Add(ButtonsName.Save, GameObject.FindGameObjectWithTag(Tags.MenuBtnSaveTag).GetComponent<Button>());
 
             _menuText = GameObject.FindGameObjectWithTag(Tags.MenuTextTag).GetComponent<TextMeshProUGUI>();
-            _menuText.text = "";
+            
+            _menuText.text = "Game in pause mode";
 
             HideAllButtons();
+            ChangeButtonVisible(ButtonsName.Load, true);
+            ChangeButtonVisible(ButtonsName.Save, true);
+            ChangeButtonVisible(ButtonsName.Exit, true);
             _menu.SetActive(false);
 
             _textMeshHealth = GameObject.FindGameObjectWithTag(Tags.HealthUITag).GetComponent<TextMeshProUGUI>();

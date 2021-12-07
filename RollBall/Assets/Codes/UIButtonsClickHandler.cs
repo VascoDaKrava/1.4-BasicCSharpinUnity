@@ -19,7 +19,6 @@ namespace Kravchuk
 
         public void onClickExit()
         {
-            ElemsUI.HideAllButtons();
             ElemsUI.MenuVisible = false;
         }
 

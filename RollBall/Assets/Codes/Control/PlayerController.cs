@@ -18,14 +18,14 @@ namespace Kravchuk
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose, InputManager inputManager)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;
 
             _gameLose = gameLose;
 
-            _inputManager = new InputManager();
+            _inputManager = inputManager;
 
             _playerModel = new PlayerModel(rigidbody);
             _playerView = new PlayerView(elementsUI);

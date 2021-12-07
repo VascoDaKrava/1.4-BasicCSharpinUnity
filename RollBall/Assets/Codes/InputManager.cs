@@ -11,6 +11,11 @@ namespace Kravchuk
             get { return Input.GetButton(InputKeysAndAxis.ButtonStop); }
         }
 
+        public bool IsPausePress
+        {
+            get { return Input.GetButtonDown(InputKeysAndAxis.ButtonPause); }
+        }
+
         /// <summary>
         /// Return normalized Vector3 of direction if pressed move-keys
         /// </summary>

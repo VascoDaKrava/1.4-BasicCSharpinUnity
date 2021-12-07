@@ -27,6 +27,7 @@ namespace Kravchuk
             #endregion
 
             _updatables.Add(_links.PlayerControllerLink);
+            _updatables.Add(_links.MenuPause);
             _updatables.AddRange(_links.Pickups);
 
             _links.EventStorageLink.PickupEvent += PickupCollected;

@@ -12,19 +12,24 @@ namespace Kravchuk
         private UIElems _elementsUILink;
         private GameWin _gameWinLink;
         private GameLose _gameLoseLink;
+        private InputManager _inputManager;
 
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
         public CameraController CameraControllerLink { get; }
         public List<IUpdatable> Pickups { get; }
+        public MenuPauseController MenuPause { get; }
 
         private UIButtonsClickHandler _buttonsClickHandler;
 
         public Links()
         {
+            _inputManager = new InputManager();
             _elementsUILink = new UIElems();
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
+
+            MenuPause = new MenuPauseController(_inputManager, _elementsUILink);
 
             _playerRigidbodyLink = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<Rigidbody>();
 
@@ -36,7 +41,12 @@ namespace Kravchuk
                 _playerRigidbodyLink
                 );
 
-            PlayerControllerLink = new PlayerController(EventStorageLink, _playerRigidbodyLink, _elementsUILink, _gameLoseLink);
+            PlayerControllerLink = new PlayerController(
+                EventStorageLink,
+                _playerRigidbodyLink,
+                _elementsUILink,
+                _gameLoseLink,
+                _inputManager);
 
             _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
             _gameLoseLink = new GameLose(_elementsUILink);
