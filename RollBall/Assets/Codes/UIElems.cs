@@ -118,6 +118,7 @@ namespace Kravchuk
             _menuText.text = "Game in pause mode";
 
             HideAllButtons();
+            ChangeButtonVisible(ButtonsName.Restart, true);
             ChangeButtonVisible(ButtonsName.Load, true);
             ChangeButtonVisible(ButtonsName.Save, true);
             ChangeButtonVisible(ButtonsName.Exit, true);

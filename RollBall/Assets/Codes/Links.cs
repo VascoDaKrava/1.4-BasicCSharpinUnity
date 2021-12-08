@@ -41,15 +41,15 @@ namespace Kravchuk
                 _playerRigidbodyLink
                 );
 
+            _gameLoseLink = new GameLose(_elementsUILink);
+            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
+
             PlayerControllerLink = new PlayerController(
                 EventStorageLink,
                 _playerRigidbodyLink,
                 _elementsUILink,
                 _gameLoseLink,
                 _inputManager);
-
-            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
-            _gameLoseLink = new GameLose(_elementsUILink);
 
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
