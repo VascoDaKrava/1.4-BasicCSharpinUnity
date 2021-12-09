@@ -27,9 +27,10 @@ namespace Kravchuk
         {
             _inputManager = new InputManager();
             _elementsUILink = new UIElems();
-            _dataSaveLoadRepo = new DataSaveLoadRepo();
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
+
+            _dataSaveLoadRepo = new DataSaveLoadRepo(this);
 
             MenuPause = new MenuPauseController(_inputManager, _elementsUILink);
 
