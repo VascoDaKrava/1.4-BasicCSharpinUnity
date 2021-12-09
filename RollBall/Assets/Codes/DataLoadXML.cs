@@ -1,6 +1,6 @@
 namespace Kravchuk
 {
-    public sealed class IDatable
+    public sealed class DataLoadXML
     {
         
     }

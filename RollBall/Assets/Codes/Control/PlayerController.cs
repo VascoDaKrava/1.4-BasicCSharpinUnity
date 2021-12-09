@@ -10,7 +10,6 @@ namespace Kravchuk
         private EventStorage _eventStorage;
         private PlayerModel _playerModel;
         private PlayerView _playerView;
-
         private GameLose _gameLose;
 
         /// <summary>
@@ -18,7 +17,7 @@ namespace Kravchuk
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose, InputManager inputManager)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose, InputManager inputManager, DataSaveLoadRepo repo)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;

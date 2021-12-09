@@ -120,6 +120,7 @@ namespace Kravchuk
             HideAllButtons();
             ChangeButtonVisible(ButtonsName.Restart, true);
             ChangeButtonVisible(ButtonsName.Load, true);
+            ChangeButtonEnableState(ButtonsName.Load, false);
             ChangeButtonVisible(ButtonsName.Save, true);
             ChangeButtonVisible(ButtonsName.Exit, true);
             _menu.SetActive(false);
@@ -148,6 +149,16 @@ namespace Kravchuk
         public void ChangeButtonVisible(ButtonsName buttonName, bool visible)
         {
             _buttonsDic[buttonName].transform.gameObject.SetActive(visible);
+        }
+
+        /// <summary>
+        /// Change interactable state for button
+        /// </summary>
+        /// <param name="buttonName">Button</param>
+        /// <param name="state">Is button enable</param>
+        public void ChangeButtonEnableState(ButtonsName buttonName, bool state)
+        {
+            _buttonsDic[buttonName].enabled = state;
         }
     }
 }

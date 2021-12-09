@@ -6,6 +6,7 @@ namespace Kravchuk
     public class UIButtonsClickHandler : MonoBehaviour
     {
         public UIElems ElemsUI { get; set; }
+        public DataSaveLoadRepo DataSaveLoadLink { get; set; }
 
         public void onClickOK()
         {
@@ -31,12 +32,13 @@ namespace Kravchuk
 
         public void onClickSave()
         {
-            Debug.Log("Press Save");
+            DataSaveLoadLink.Save();
+            ElemsUI.ChangeButtonEnableState(ButtonsName.Load, true);
         }
 
         public void onClickLoad()
         {
-            Debug.Log("Press Load");
+            DataSaveLoadLink.Load();
         }
     }
 }

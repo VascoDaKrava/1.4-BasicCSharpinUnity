@@ -8,12 +8,13 @@ namespace Kravchuk
     /// </summary>
     public sealed class Links
     {
-        private Rigidbody _playerRigidbodyLink;
         private UIElems _elementsUILink;
         private GameWin _gameWinLink;
         private GameLose _gameLoseLink;
         private InputManager _inputManager;
+        private DataSaveLoadRepo _dataSaveLoadRepo;
 
+        public Rigidbody PlayerRigidbodyLink { get; }
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
         public CameraController CameraControllerLink { get; }
@@ -26,19 +27,21 @@ namespace Kravchuk
         {
             _inputManager = new InputManager();
             _elementsUILink = new UIElems();
+            _dataSaveLoadRepo = new DataSaveLoadRepo();
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
 
             MenuPause = new MenuPauseController(_inputManager, _elementsUILink);
 
-            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<Rigidbody>();
+            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<Rigidbody>();
 
             _buttonsClickHandler = GameObject.FindGameObjectWithTag(Tags.GameControllerTag).GetComponent<UIButtonsClickHandler>();
             _buttonsClickHandler.ElemsUI = _elementsUILink;
+            _buttonsClickHandler.DataSaveLoadLink = _dataSaveLoadRepo;
 
             CameraControllerLink = new CameraController(
                 GameObject.FindGameObjectWithTag(Tags.CameraTag).GetComponent<Camera>(),
-                _playerRigidbodyLink
+                PlayerRigidbodyLink
                 );
 
             _gameLoseLink = new GameLose(_elementsUILink);
@@ -46,14 +49,18 @@ namespace Kravchuk
 
             PlayerControllerLink = new PlayerController(
                 EventStorageLink,
-                _playerRigidbodyLink,
+                PlayerRigidbodyLink,
                 _elementsUILink,
                 _gameLoseLink,
-                _inputManager);
+                _inputManager,
+                _dataSaveLoadRepo);
+
+            _dataSaveLoadRepo.AddDataToSaveRepo(PlayerRigidbodyLink.gameObject);
 
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
                 item.EventStorageLink = EventStorageLink;
+                _dataSaveLoadRepo.AddDataToSaveRepo(item.gameObject);
                 Pickups.Add((IUpdatable)item);
             }
         }

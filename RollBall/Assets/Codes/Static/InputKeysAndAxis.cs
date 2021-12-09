@@ -5,7 +5,7 @@ namespace Kravchuk
     /// <summary>
     /// Contain names of Axis and Keys
     /// </summary>
-    public sealed class InputKeysAndAxis
+    public static class InputKeysAndAxis
     {
         public const string ButtonStop = "Stop";
         public const string ButtonPause = "Pause";
