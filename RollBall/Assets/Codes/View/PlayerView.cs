@@ -81,15 +81,6 @@ namespace Kravchuk
         }
 
         /// <summary>
-        /// Message to log
-        /// </summary>
-        /// <param name="message"></param>
-        public void ServiceMessage(string message)
-        {
-            Debug.Log(message);
-        }
-
-        /// <summary>
         /// Calculating time for color effect.
         /// This method need to put in Update
         /// </summary>

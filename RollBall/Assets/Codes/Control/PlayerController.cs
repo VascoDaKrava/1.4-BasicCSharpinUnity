@@ -10,7 +10,6 @@ namespace Kravchuk
         private EventStorage _eventStorage;
         private PlayerModel _playerModel;
         private PlayerView _playerView;
-
         private GameLose _gameLose;
 
         /// <summary>
@@ -18,14 +17,14 @@ namespace Kravchuk
         /// </summary>
         /// <param name="eventStorage">Link to EventStorage</param>
         /// <param name="rigidbody">Link to Rigidbody</param>
-        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose)
+        public PlayerController(EventStorage eventStorage, Rigidbody rigidbody, UIElems elementsUI, GameLose gameLose, InputManager inputManager, DataSaveLoadRepo repo)
         {
             _eventStorage = eventStorage;
             _eventStorage.PickupEvent += PickupCollected;
 
             _gameLose = gameLose;
 
-            _inputManager = new InputManager();
+            _inputManager = inputManager;
 
             _playerModel = new PlayerModel(rigidbody);
             _playerView = new PlayerView(elementsUI);
@@ -43,7 +42,6 @@ namespace Kravchuk
             switch (eventData.TypeP)
             {
                 case PickupType.Health:
-                    //_playerView.ServiceMessage($"Changing health by {eventData.PowerInt}");
                     _playerModel.Health = eventData.PowerInt;
                     _playerView.ChangeHealth(_playerModel.Health, eventData.PowerInt < 0 ? true : false);
 
@@ -81,7 +79,6 @@ namespace Kravchuk
             if (_inputManager.IsStop)
             {
                 _playerModel.ChangeSpeed(0f, 0f);
-                _playerView.ServiceMessage("Now stop!");
                 return;
             }
 

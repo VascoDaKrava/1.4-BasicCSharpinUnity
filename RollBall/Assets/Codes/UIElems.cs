@@ -5,19 +5,6 @@ using UnityEngine.UI;
 
 namespace Kravchuk
 {
-    /// <summary>
-    /// All menu buttons
-    /// </summary>
-    public enum ButtonsName
-    {
-        Restart = 0,
-        Save = 1,
-        Load = 2,
-        OK = 3,
-        Back = 4,
-        Exit = 5
-    }
-
     public sealed class UIElems
     {
         private TextMeshProUGUI _textMeshHealth;
@@ -93,14 +80,6 @@ namespace Kravchuk
             }
         }
 
-        //public Dictionary<ButtonsName, Button> Buttons
-        //{
-        //    get
-        //    {
-        //        return _buttonsDic;
-        //    }
-        //}
-
         /// <summary>
         /// Set or get visibility for Menu. Stop updates when Menu is visible
         /// </summary>
@@ -125,24 +104,30 @@ namespace Kravchuk
         {
             _buttonsDic = new Dictionary<ButtonsName, Button>();
 
-            _menu = GameObject.FindGameObjectWithTag(StaticValues.MenuGroupTag);
+            _menu = GameObject.FindGameObjectWithTag(Tags.MenuGroupTag);
 
-            _buttonsDic.Add(ButtonsName.Back, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnBackTag).GetComponent<Button>());
-            _buttonsDic.Add(ButtonsName.Exit, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnExitTag).GetComponent<Button>());
-            _buttonsDic.Add(ButtonsName.Load, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnLoadTag).GetComponent<Button>());
-            _buttonsDic.Add(ButtonsName.OK, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnOKTag).GetComponent<Button>());
-            _buttonsDic.Add(ButtonsName.Restart, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnRestartTag).GetComponent<Button>());
-            _buttonsDic.Add(ButtonsName.Save, GameObject.FindGameObjectWithTag(StaticValues.MenuBtnSaveTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.Back, GameObject.FindGameObjectWithTag(Tags.MenuBtnBackTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.Exit, GameObject.FindGameObjectWithTag(Tags.MenuBtnExitTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.Load, GameObject.FindGameObjectWithTag(Tags.MenuBtnLoadTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.OK, GameObject.FindGameObjectWithTag(Tags.MenuBtnOKTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.Restart, GameObject.FindGameObjectWithTag(Tags.MenuBtnRestartTag).GetComponent<Button>());
+            _buttonsDic.Add(ButtonsName.Save, GameObject.FindGameObjectWithTag(Tags.MenuBtnSaveTag).GetComponent<Button>());
 
-            _menuText = GameObject.FindGameObjectWithTag(StaticValues.MenuTextTag).GetComponent<TextMeshProUGUI>();
-            _menuText.text = "";
+            _menuText = GameObject.FindGameObjectWithTag(Tags.MenuTextTag).GetComponent<TextMeshProUGUI>();
+            
+            _menuText.text = "Game in pause mode";
 
             HideAllButtons();
+            ChangeButtonVisible(ButtonsName.Restart, true);
+            ChangeButtonVisible(ButtonsName.Load, true);
+            ChangeButtonEnableState(ButtonsName.Load, false);
+            ChangeButtonVisible(ButtonsName.Save, true);
+            ChangeButtonVisible(ButtonsName.Exit, true);
             _menu.SetActive(false);
 
-            _textMeshHealth = GameObject.FindGameObjectWithTag(StaticValues.HealthUITag).GetComponent<TextMeshProUGUI>();
-            _textMeshSpeed = GameObject.FindGameObjectWithTag(StaticValues.SpeedUITag).GetComponent<TextMeshProUGUI>();
-            _textMeshWin = GameObject.FindGameObjectWithTag(StaticValues.WinUITag).GetComponent<TextMeshProUGUI>();
+            _textMeshHealth = GameObject.FindGameObjectWithTag(Tags.HealthUITag).GetComponent<TextMeshProUGUI>();
+            _textMeshSpeed = GameObject.FindGameObjectWithTag(Tags.SpeedUITag).GetComponent<TextMeshProUGUI>();
+            _textMeshWin = GameObject.FindGameObjectWithTag(Tags.WinUITag).GetComponent<TextMeshProUGUI>();
         }
 
         /// <summary>
@@ -164,6 +149,16 @@ namespace Kravchuk
         public void ChangeButtonVisible(ButtonsName buttonName, bool visible)
         {
             _buttonsDic[buttonName].transform.gameObject.SetActive(visible);
+        }
+
+        /// <summary>
+        /// Change interactable state for button
+        /// </summary>
+        /// <param name="buttonName">Button</param>
+        /// <param name="state">Is button enable</param>
+        public void ChangeButtonEnableState(ButtonsName buttonName, bool state)
+        {
+            _buttonsDic[buttonName].enabled = state;
         }
     }
 }

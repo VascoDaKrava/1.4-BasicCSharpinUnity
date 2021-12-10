@@ -2,16 +2,6 @@ using UnityEngine;
 
 namespace Kravchuk
 {
-    /// <summary>
-    /// Pickup type
-    /// </summary>
-    public enum PickupType
-    {
-        Health = 0,
-        Speed = 1,
-        Win = 2
-    }
-
     public abstract class Pickup : MonoBehaviour
     {
         /// <summary>
@@ -26,7 +16,7 @@ namespace Kravchuk
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(StaticValues.PlayerTag))
+            if (other.CompareTag(Tags.PlayerTag))
             {
                 Interaction();
                 Destroy(gameObject);

@@ -8,42 +8,60 @@ namespace Kravchuk
     /// </summary>
     public sealed class Links
     {
-        private Rigidbody _playerRigidbodyLink;
         private UIElems _elementsUILink;
         private GameWin _gameWinLink;
         private GameLose _gameLoseLink;
+        private InputManager _inputManager;
+        private DataSaveLoadRepo _dataSaveLoadRepo;
 
+        public Rigidbody PlayerRigidbodyLink { get; }
         public PlayerController PlayerControllerLink { get; }
         public EventStorage EventStorageLink { get; }
         public CameraController CameraControllerLink { get; }
         public List<IUpdatable> Pickups { get; }
+        public MenuPauseController MenuPause { get; }
 
         private UIButtonsClickHandler _buttonsClickHandler;
 
         public Links()
         {
+            _inputManager = new InputManager();
             _elementsUILink = new UIElems();
             EventStorageLink = new EventStorage();
             Pickups = new List<IUpdatable>();
 
-            _playerRigidbodyLink = GameObject.FindGameObjectWithTag(StaticValues.PlayerTag).GetComponent<Rigidbody>();
+            _dataSaveLoadRepo = new DataSaveLoadRepo(this);
 
-            _buttonsClickHandler = GameObject.FindGameObjectWithTag(StaticValues.GameControllerTag).GetComponent<UIButtonsClickHandler>();
+            MenuPause = new MenuPauseController(_inputManager, _elementsUILink);
+
+            PlayerRigidbodyLink = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<Rigidbody>();
+
+            _buttonsClickHandler = GameObject.FindGameObjectWithTag(Tags.GameControllerTag).GetComponent<UIButtonsClickHandler>();
             _buttonsClickHandler.ElemsUI = _elementsUILink;
+            _buttonsClickHandler.DataSaveLoadLink = _dataSaveLoadRepo;
 
             CameraControllerLink = new CameraController(
-                GameObject.FindGameObjectWithTag(StaticValues.CameraTag).GetComponent<Camera>(),
-                _playerRigidbodyLink
+                GameObject.FindGameObjectWithTag(Tags.CameraTag).GetComponent<Camera>(),
+                PlayerRigidbodyLink
                 );
 
-            PlayerControllerLink = new PlayerController(EventStorageLink, _playerRigidbodyLink, _elementsUILink, _gameLoseLink);
-
-            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
             _gameLoseLink = new GameLose(_elementsUILink);
+            _gameWinLink = new GameWin(EventStorageLink, _elementsUILink);
+
+            PlayerControllerLink = new PlayerController(
+                EventStorageLink,
+                PlayerRigidbodyLink,
+                _elementsUILink,
+                _gameLoseLink,
+                _inputManager,
+                _dataSaveLoadRepo);
+
+            _dataSaveLoadRepo.AddDataToSaveRepo(PlayerRigidbodyLink.gameObject);
 
             foreach (Pickup item in GameObject.FindObjectsOfType<Pickup>())
             {
                 item.EventStorageLink = EventStorageLink;
+                _dataSaveLoadRepo.AddDataToSaveRepo(item.gameObject);
                 Pickups.Add((IUpdatable)item);
             }
         }

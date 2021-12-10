@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<ArrayOfSavingData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SavingData>
+    <InstanceID>111386</InstanceID>
+    <PrefabName>Ball</PrefabName>
+    <ObjectName>Ball</ObjectName>
+    <PositionX>17.026844</PositionX>
+    <PositionZ>18.65431</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>110698</InstanceID>
+    <PrefabName>PickupWin</PrefabName>
+    <ObjectName>PickupWin</ObjectName>
+    <PositionX>13.5</PositionX>
+    <PositionZ>17</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>110886</InstanceID>
+    <PrefabName>PickupWin</PrefabName>
+    <ObjectName>PickupWin (3)</ObjectName>
+    <PositionX>90.69</PositionX>
+    <PositionZ>50.77</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>110912</InstanceID>
+    <PrefabName>PickupHealth</PrefabName>
+    <ObjectName>PickupHealth (2)</ObjectName>
+    <PositionX>17.54</PositionX>
+    <PositionZ>4.15</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>110976</InstanceID>
+    <PrefabName>PickupWin</PrefabName>
+    <ObjectName>PickupWin (1)</ObjectName>
+    <PositionX>30.44</PositionX>
+    <PositionZ>44.01</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111098</InstanceID>
+    <PrefabName>PickupHealth</PrefabName>
+    <ObjectName>PickupHealth (1)</ObjectName>
+    <PositionX>22.97</PositionX>
+    <PositionZ>27.51</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111144</InstanceID>
+    <PrefabName>PickupWin</PrefabName>
+    <ObjectName>PickupWin (2)</ObjectName>
+    <PositionX>57.67</PositionX>
+    <PositionZ>48.01</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111530</InstanceID>
+    <PrefabName>PickupWin</PrefabName>
+    <ObjectName>PickupWin (4)</ObjectName>
+    <PositionX>89.86</PositionX>
+    <PositionZ>6.16</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111698</InstanceID>
+    <PrefabName>PickupHealth</PrefabName>
+    <ObjectName>PickupHealth</ObjectName>
+    <PositionX>2.5</PositionX>
+    <PositionZ>25</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111730</InstanceID>
+    <PrefabName>PickupSpeed</PrefabName>
+    <ObjectName>PickupSpeed (4)</ObjectName>
+    <PositionX>67.71</PositionX>
+    <PositionZ>57.54</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111826</InstanceID>
+    <PrefabName>PickupSpeed</PrefabName>
+    <ObjectName>PickupSpeed (2)</ObjectName>
+    <PositionX>40.34</PositionX>
+    <PositionZ>28.4</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>111980</InstanceID>
+    <PrefabName>PickupHealth</PrefabName>
+    <ObjectName>PickupHealth (3)</ObjectName>
+    <PositionX>40.54</PositionX>
+    <PositionZ>60.54</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>112162</InstanceID>
+    <PrefabName>PickupSpeed</PrefabName>
+    <ObjectName>PickupSpeed (3)</ObjectName>
+    <PositionX>4.79</PositionX>
+    <PositionZ>57.23</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>112170</InstanceID>
+    <PrefabName>PickupHealth</PrefabName>
+    <ObjectName>PickupHealth (4)</ObjectName>
+    <PositionX>30.1</PositionX>
+    <PositionZ>76.8</PositionZ>
+  </SavingData>
+  <SavingData>
+    <InstanceID>112234</InstanceID>
+    <PrefabName>PickupSpeed</PrefabName>
+    <ObjectName>PickupSpeed (1)</ObjectName>
+    <PositionX>10.92</PositionX>
+    <PositionZ>36.04</PositionZ>
+  </SavingData>
+</ArrayOfSavingData>

@@ -16,9 +16,9 @@ namespace Kravchuk
         private void OnEnable()
         {
             _pickups = new Dictionary<PickupType, Object>();
-            _pickups.Add(PickupType.Health, Resources.Load(StaticValues.ResourcePickupHealth));
-            _pickups.Add(PickupType.Speed, Resources.Load(StaticValues.ResourcePickupSpeed));
-            _pickups.Add(PickupType.Win, Resources.Load(StaticValues.ResourcePickupWin));
+            _pickups.Add(PickupType.Health, Resources.Load(ResourcesPath.ResourcePickupHealth));
+            _pickups.Add(PickupType.Speed, Resources.Load(ResourcesPath.ResourcePickupSpeed));
+            _pickups.Add(PickupType.Win, Resources.Load(ResourcesPath.ResourcePickupWin));
         }
 
         private void OnGUI()
@@ -35,23 +35,16 @@ namespace Kravchuk
             EditorGUILayout.Space(20f);
 
             if (GUILayout.Button($"Create Pickup-{_selectedPickupType}\nin position {_pickupPosition}"))
-                MakeDirty(
-                    GameObject.Instantiate(
-                        _pickups[_selectedPickupType],
-                        _pickupPosition,
-                        Quaternion.identity,
-                        GameObject.Find(StaticValues.PickupParentName).transform)
-                );
-        }
+            {
+                GameObject.Instantiate(
+                    _pickups[_selectedPickupType],
+                    _pickupPosition,
+                    Quaternion.identity,
+                    GameObject.FindGameObjectWithTag(Tags.PickupParentName).transform);
 
-        /// <summary>
-        /// Mark scene as modified/Dirty
-        /// </summary>
-        /// <param name="obj"></param>
-        private void MakeDirty(Object obj)
-        {
-            EditorUtility.SetDirty(obj);
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                // Mark scene as modified/Dirty
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            }
         }
     }
 }

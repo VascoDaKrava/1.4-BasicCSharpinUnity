@@ -1,24 +1,11 @@
-using UnityEngine;
-
 namespace Kravchuk
 {
     /// <summary>
-    /// Container for constants like string values
+    /// Contain Tags
     /// </summary>
-    public static class StaticValues
+    public static class Tags
     {
-
-        public const string PickupParentName = "PickUps";
-
-        #region Resources
-
-        public const string ResourcePickupHealth = "PickupHealth";
-        public const string ResourcePickupSpeed = "PickupSpeed";
-        public const string ResourcePickupWin = "PickupWin";
-
-        #endregion
-
-        #region Tags
+        public const string PickupParentName = "TagPickUpParent";
 
         public const string GameControllerTag = "GameController";
         public const string PlayerTag = "Player";
@@ -37,16 +24,5 @@ namespace Kravchuk
         public const string MenuBtnExitTag = "TagBtnExit";
         public const string MenuTextTag = "TagMenuText";
 
-        #endregion
-
-        #region Keys and axises
-
-        public const string ButtonStop = "Stop";
-        public const KeyCode ButtonFive = KeyCode.Alpha5;
-
-        public const string AxisHorizontal = "Horizontal";
-        public const string AxisVertical = "Vertical";
-
-        #endregion
     }
 }
