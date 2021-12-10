@@ -5,13 +5,13 @@ namespace Kravchuk
 {
     public sealed class DataSaveLoadRepo
     {
-        private Dictionary<int, GameObject> _incomingData;
+        private List<GameObject> _incomingData;
         private List<SavingData> _savingData;
         private Links _links;
 
         public DataSaveLoadRepo(Links links)
         {
-            _incomingData = new Dictionary<int, GameObject>();
+            _incomingData = new List<GameObject>();
             _savingData = new List<SavingData>();
 
             _links = links;
@@ -23,7 +23,7 @@ namespace Kravchuk
         /// <param name="data">GameObject</param>
         public void AddDataToSaveRepo(GameObject data)
         {
-            _incomingData.Add(data.GetInstanceID(), data);
+            _incomingData.Add(data);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Kravchuk
         {
             _savingData.Clear();
 
-            foreach (GameObject item in _incomingData.Values)
+            foreach (GameObject item in _incomingData)
             {
                 if (item)
                 {
@@ -70,6 +70,12 @@ namespace Kravchuk
 
         private void RestoreFromSavingDataList()
         {
+            foreach (GameObject item in _incomingData)
+            {
+                if (!item.CompareTag(Tags.PlayerTag))
+                    GameObject.Destroy(item);
+            }
+
             foreach (SavingData objectFromSave in _savingData)
             {
                 GameObject objectAtScene = GameObject.Find(objectFromSave.ObjectName);
